@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>☠️ Golden Pirate Base</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#1a6fa8;font-family:'Nunito',sans-serif;overflow:hidden}
+
+.app{
+display:flex;flex-direction:column;
+height:100vh;max-width:480px;margin:0 auto;
+background:linear-gradient(180deg,#2a8fd4 0%,#1a6fa8 35%,#0d3d6b 100%);
+position:relative;overflow:hidden;
+}
+
+/* ── HEADER ── */
+.header{
+position:relative;z-index:10;
+display:flex;align-items:center;justify-content:space-between;
+padding:14px 14px 8px;flex-shrink:0;
+gap:8px;
+}
+.header-pill{
+display:flex;align-items:center;gap:4px;
+background:#fff;border:2.5px solid #111;
+border-radius:50px;padding:3px 4px 3px 3px;
+box-shadow:0 2px 8px rgba(0,0,0,0.25);
+flex:1;min-width:0;
+}
+.avatar-circle{
+width:42px;height:42px;border-radius:50%;
+background:linear-gradient(135deg,#a8d8f0,#5ba8d4);
+border:2px solid #111;
+display:flex;align-items:center;justify-content:center;
+font-size:1.4rem;overflow:hidden;flex-shrink:0;
+}
+.coin-badge{
+display:flex;align-items:center;gap:5px;
+background:#fff;border:2px solid #111;border-radius:30px;
+padding:5px 10px 5px 6px;
+font-size:0.88rem;font-weight:800;color:#111;white-space:nowrap;
+}
+.coin-icon{
+width:22px;height:22px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:0.75rem;flex-shrink:0;
+}
+.ci-gold{background:linear-gradient(135deg,#f5c842,#c9941a);border:1.5px solid #a07010}
+.ci-silver{background:linear-gradient(135deg,#d0d0d0,#909090);border:1.5px solid #707070}
+.mute-btn{
+width:42px;height:42px;border-radius:50%;
+background:#fff;border:2.5px solid #111;
+display:flex;align-items:center;justify-content:center;
+font-size:1rem;cursor:pointer;flex-shrink:0;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ── WALLET CONNECT BUTTON (top area) ── */
+.wallet-connect-bar{
+position:relative;z-index:10;
+padding:0 14px 10px;flex-shrink:0;
+}
+.wallet-connect-btn{
+width:100%;
+background:linear-gradient(135deg,#2563eb,#1a4fd8);
+border:2.5px solid #111;border-radius:14px;
+padding:13px 20px;
+display:flex;align-items:center;justify-content:space-between;
+cursor:pointer;box-shadow:0 3px 0 #111;
+transition:all 0.12s;
+}
+.wallet-connect-btn:active{transform:translateY(2px);box-shadow:none}
+.wallet-connect-btn.connected{background:linear-gradient(135deg,#16a34a,#15803d)}
+.wallet-connect-btn.connected:hover{background:linear-gradient(135deg,#15803d,#166534)}
+
+.wcb-left{display:flex;align-items:center;gap:10px}
+.wcb-dot{width:10px;height:10px;border-radius:50%;background:#9ca3af;flex-shrink:0;transition:all 0.3s}
+.wcb-dot.on{background:#86efac;box-shadow:0 0 8px rgba(134,239,172,0.8)}
+.wcb-label{font-size:0.82rem;font-weight:800;color:#fff;letter-spacing:0.3px}
+.wcb-addr{font-size:0.75rem;color:rgba(255,255,255,0.8);font-weight:700}
+.wcb-action{font-size:0.72rem;font-weight:900;color:rgba(255,255,255,0.85);letter-spacing:1px;text-transform:uppercase;background:rgba(255,255,255,0.15);padding:5px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.25)}
+
+/* ── SCROLL ── */
+.page-content{
+position:relative;z-index:5;
+flex:1;overflow-y:auto;overflow-x:hidden;
+padding:0 12px 14px;scrollbar-width:none;
+}
+.page-content::-webkit-scrollbar{display:none}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── SHARED CARDS ── */
+.wcard{
+background:#fff;border:2.5px solid #111;
+border-radius:16px;padding:16px 20px;
+margin-bottom:10px;box-shadow:0 3px 0 #111;
+}
+.wcard-title{font-size:1.05rem;font-weight:900;color:#111;text-align:center;margin-bottom:4px}
+.wcard-sub{font-size:0.81rem;font-weight:600;color:#666;text-align:center;line-height:1.45}
+
+/* ── CLAIM TAB ── */
+.claim-banner{
+background:linear-gradient(135deg,#2563eb,#1a4fd8);
+border:2.5px solid #111;border-radius:16px;
+padding:16px 20px;margin-bottom:10px;
+text-align:center;cursor:pointer;
+box-shadow:0 3px 0 #111;transition:transform 0.1s;
+}
+.claim-banner:active{transform:scale(0.98)}
+.claim-banner-title{font-size:1.18rem;font-weight:900;color:#fff;margin-bottom:3px}
+.claim-banner-title span{color:#fde68a}
+.claim-banner-sub{font-size:0.84rem;font-weight:700;color:rgba(255,255,255,0.85)}
+.claim-banner-sub span{color:#fde68a;font-weight:800}
+
+.worker-card{
+border:2.5px solid #111;border-radius:18px;
+overflow:hidden;margin-bottom:10px;
+position:relative;height:150px;
+box-shadow:0 3px 0 #111;cursor:pointer;
+}
+.wbg{position:absolute;inset:0;background:linear-gradient(180deg,#8fd8f8 0%,#5bbce8 40%,#80c8f0 65%,#e8d488 85%,#c8a840 100%)}
+.wbg-tree{position:absolute;right:18px;bottom:30px;font-size:3.5rem;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.2))}
+.wbg-wave{position:absolute;bottom:36px;left:0;right:0;height:28px;background:rgba(70,170,220,0.45);border-radius:60% 60% 0 0/14px 14px 0 0}
+.wbg-sand{position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(to top,#b88820,#d4a840)}
+.wbg-crab{position:absolute;left:12px;bottom:30px;font-size:4.8rem;filter:drop-shadow(2px 2px 5px rgba(0,0,0,0.2));animation:bob 2.5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.worker-btn{
+position:absolute;right:12px;top:50%;transform:translateY(-50%);
+background:linear-gradient(135deg,#2563eb,#1a4fd8);
+color:#fff;font-size:0.82rem;font-weight:800;
+padding:11px 16px;border-radius:12px;
+border:2px solid #111;cursor:pointer;
+box-shadow:0 2px 0 #111;white-space:nowrap;
+}
+.worker-btn:active{transform:translateY(calc(-50% + 1px));box-shadow:none}
+
+/* ── ECONOMY EXPLAINER ── */
+.economy-card{
+background:linear-gradient(135deg,#fef9e7,#fef3c7);
+border:2.5px solid #111;border-radius:16px;
+padding:14px 16px;margin-bottom:10px;
+box-shadow:0 3px 0 #111;
+}
+.economy-title{font-size:0.72rem;font-weight:900;color:#111;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;text-align:center}
+.economy-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.economy-row:last-child{margin-bottom:0}
+.eco-icon{font-size:1.5rem;flex-shrink:0;width:32px;text-align:center}
+.eco-text{font-size:0.78rem;font-weight:700;color:#374151;line-height:1.4}
+.eco-text b{color:#111}
+.eco-arrow{font-size:0.85rem;color:#9ca3af;flex-shrink:0}
+
+/* ── FAQ CARD ── */
+.faq-card{
+background:#fff;border:2.5px solid #111;
+border-radius:16px;overflow:hidden;
+margin-bottom:10px;box-shadow:0 3px 0 #111;
+}
+.faq-header{
+display:flex;align-items:center;justify-content:space-between;
+padding:16px 18px;cursor:pointer;
+transition:background 0.15s;
+}
+.faq-header:active{background:#f9fafb}
+.faq-chevron{
+font-size:0.8rem;color:#aaa;font-weight:900;
+transition:transform 0.3s;flex-shrink:0;
+}
+.faq-chevron.open{transform:rotate(180deg)}
+.faq-body{
+max-height:0;overflow:hidden;
+transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+border-top:0px solid #f3f4f6;
+}
+.faq-body.open{
+max-height:2000px;
+border-top:2px solid #f3f4f6;
+}
+.faq-item{
+padding:14px 18px;
+border-bottom:1.5px solid #f3f4f6;
+}
+.faq-item:last-child{border-bottom:none}
+.faq-q{
+font-size:0.86rem;font-weight:900;color:#111;
+margin-bottom:5px;
+}
+.faq-a{
+font-size:0.78rem;font-weight:600;color:#6b7280;
+line-height:1.55;
+}
+
+/* ── GAME TAB ── */
+.chest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.chest-cell{
+aspect-ratio:1;background:#fff;
+border:2.5px solid #111;border-radius:16px;
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;box-shadow:0 3px 0 #111;
+transition:all 0.12s;overflow:hidden;position:relative;
+}
+.chest-cell:hover:not(.opened){background:#fffbf0;border-color:#c9941a}
+.chest-cell:active{transform:scale(0.93);box-shadow:none}
+.chest-cell.selected{outline:3px solid #2563eb;outline-offset:2px;background:#eff6ff}
+.chest-cell.opened{background:#fffbf0;cursor:default;font-size:2.5rem}
+.chest-cell.opened.rare-glow{background:linear-gradient(135deg,#fff9e6,#fef3c7);box-shadow:0 0 0 3px #f5c842,0 3px 0 #111}
+
+.game-info-bar{
+display:flex;gap:8px;margin-bottom:10px;
+}
+.game-pill{
+flex:1;background:rgba(255,255,255,0.15);
+border:1.5px solid rgba(255,255,255,0.3);
+border-radius:12px;padding:8px;text-align:center;
+}
+.game-pill-val{font-size:1rem;font-weight:900;color:#fff;display:block}
+.game-pill-lbl{font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:1px}
+
+.action-btn-disabled{
+width:100%;background:#d1d5db;
+border:2.5px solid #bbb;border-radius:14px;
+padding:16px;font-size:1rem;font-weight:800;
+color:#9ca3af;cursor:not-allowed;
+box-shadow:0 3px 0 #aaa;text-align:center;
+}
+.action-btn-blue{
+width:100%;background:linear-gradient(135deg,#2563eb,#1a4fd8);
+border:2.5px solid #111;border-radius:14px;
+padding:16px;font-size:1rem;font-weight:800;
+color:#fff;cursor:pointer;
+box-shadow:0 3px 0 #111;text-align:center;transition:all 0.12s;
+}
+.action-btn-blue:active{transform:translateY(2px);box-shadow:none}
+
+.chest-hint{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.7);text-align:center;margin-bottom:10px}
+
+/* drop rate badges */
+.drop-rates{display:flex;gap:6px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+.dr-badge{font-size:0.66rem;font-weight:800;padding:4px 10px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.3)}
+.dr-common{background:rgba(255,255,255,0.12);color:#fff}
+.dr-rare{background:rgba(59,130,246,0.35);color:#93c5fd}
+.dr-epic{background:rgba(139,92,246,0.35);color:#c4b5fd}
+.dr-legendary{background:rgba(245,158,11,0.35);color:#fcd34d}
+
+/* ── SHIP TAB ── */
+.ship-main-card{
+background:#fff;border:2.5px solid #111;
+border-radius:20px;padding:24px 20px 20px;
+margin-bottom:12px;box-shadow:0 3px 0 #111;text-align:center;
+}
+.ship-level-title{font-size:1.25rem;font-weight:900;color:#111;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.ship-sub{font-size:0.82rem;font-weight:600;color:#666;margin-bottom:20px}
+.ship-img-area{font-size:5.5rem;margin-bottom:18px;display:block}
+.ship-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ship-stat{border:2px solid #111;border-radius:12px;padding:12px;text-align:center}
+.ship-stat-val{font-size:1.5rem;font-weight:900;color:#111;display:block}
+.ship-stat-lbl{font-size:0.6rem;font-weight:800;color:#999;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+
+/* ── LEADERS TAB ── */
+.season-card{
+background:linear-gradient(180deg,#08305e 0%,#1260a0 50%,#1a80c0 100%);
+border:2.5px solid #111;border-radius:18px;
+padding:28px 16px 20px;margin-bottom:10px;
+text-align:center;box-shadow:0 3px 0 #111;
+position:relative;overflow:hidden;
+}
+.season-word{font-size:1.1rem;font-weight:900;color:#f5c842;letter-spacing:10px;text-transform:uppercase;margin-bottom:2px}
+.season-num{font-size:4rem;font-weight:900;color:#f5c842;letter-spacing:4px;line-height:1;text-shadow:2px 2px 0 rgba(100,60,0,0.5),0 0 20px rgba(245,200,66,0.5)}
+.season-sub-badge{display:inline-block;background:rgba(0,0,0,0.3);border:1.5px solid rgba(255,255,255,0.25);border-radius:8px;padding:5px 14px;margin-top:8px;font-size:0.7rem;font-weight:800;color:#fff;letter-spacing:2px;text-transform:uppercase}
+
+.time-card{background:#fff;border:2.5px solid #111;border-radius:14px;padding:12px 20px;margin-bottom:10px;text-align:center;box-shadow:0 3px 0 #111}
+.time-label{font-size:0.62rem;font-weight:800;color:#aaa;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px}
+.time-val{font-size:1.4rem;font-weight:900;color:#111}
+
+.rank-note{background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.25);border-radius:10px;padding:8px 14px;margin-bottom:10px;font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.9);text-align:center}
+.rank-note span{color:#fde68a;font-weight:900}
+
+.lb-list{display:flex;flex-direction:column;gap:8px}
+.lb-row{
+background:#fff;border:2.5px solid #111;border-radius:14px;
+padding:11px 14px;display:flex;align-items:center;gap:11px;
+box-shadow:0 3px 0 #111;
+}
+.lb-row.mine{background:#fef9e7}
+.lb-row.lb-new{animation:slideIn 0.4s cubic-bezier(.34,1.2,.64,1)}
+@keyframes slideIn{from{transform:translateX(30px);opacity:0}to{transform:translateX(0);opacity:1}}
+.lb-rank-num{font-size:1.05rem;font-weight:900;color:#111;width:26px;text-align:center;flex-shrink:0}
+.lb-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;border:2px solid #111;overflow:hidden}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:0.88rem;font-weight:800;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-sub{font-size:0.68rem;color:#aaa;font-weight:600}
+.lb-pill{display:flex;align-items:center;gap:5px;background:#fff;border:2px solid #111;border-radius:20px;padding:5px 10px;flex-shrink:0;font-size:0.83rem;font-weight:800;color:#111}
+.lb-coin{width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#f5c842,#c9941a);border:1.5px solid #a07010;display:flex;align-items:center;justify-content:center;font-size:0.55rem}
+
+/* ── TASKS TAB ── */
+.section-lbl{font-size:0.63rem;font-weight:800;color:rgba(255,255,255,0.65);letter-spacing:3px;text-transform:uppercase;margin:4px 2px 8px}
+.task-row{background:#fff;border:2.5px solid #111;border-radius:14px;padding:13px 14px;margin-bottom:8px;display:flex;align-items:center;gap:11px;box-shadow:0 3px 0 #111}
+.task-icon{font-size:1.9rem;flex-shrink:0}
+.task-body{flex:1}
+.task-name{font-size:0.87rem;font-weight:800;color:#111}
+.task-desc{font-size:0.71rem;color:#888;margin-top:2px;font-weight:600}
+.task-prog-wrap{height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;margin-top:7px}
+.task-prog-fill{height:100%;background:linear-gradient(90deg,#2563eb,#1a4fd8);border-radius:3px;transition:width 0.4s}
+.task-right{text-align:right;flex-shrink:0}
+.task-reward{font-size:0.76rem;font-weight:900;color:#6b7280}
+/* silver reward highlight */
+.task-reward-silver{font-size:0.82rem;font-weight:900;color:#888;display:flex;align-items:center;gap:3px;justify-content:flex-end}
+.task-reward-silver .sr-icon{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#d0d0d0,#909090);border:1.5px solid #707070;display:flex;align-items:center;justify-content:center;font-size:0.55rem}
+.task-btn{background:linear-gradient(135deg,#d0d0d0,#909090);border:2px solid #555;border-radius:8px;padding:6px 10px;font-size:0.68rem;font-weight:900;color:#111;cursor:pointer;display:block;margin-top:5px;box-shadow:0 2px 0 #555;transition:all 0.12s}
+.task-btn:active{transform:translateY(1px);box-shadow:none}
+.task-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:0 2px 0 #555}
+
+/* ── PROFILE TAB ── */
+.profile-av-wrap{display:flex;justify-content:center;margin-bottom:14px;padding-top:2px}
+.profile-av{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#a8d8f0,#5ba8d4);border:3px solid #111;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:3.5rem;box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+
+.profile-name-row{text-align:center;margin-bottom:14px}
+.profile-username{font-size:1.1rem;font-weight:900;color:#fff}
+.profile-addr-text{font-size:0.72rem;color:rgba(255,255,255,0.6);font-weight:700;margin-top:2px}
+
+.profile-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.profile-stat-card{background:#fff;border:2.5px solid #111;border-radius:14px;padding:14px 12px;text-align:center;box-shadow:0 3px 0 #111}
+.ps-icon{font-size:1.5rem;margin-bottom:4px}
+.ps-val{font-size:1.3rem;font-weight:900;color:#111;display:block}
+.ps-lbl{font-size:0.6rem;font-weight:800;color:#aaa;letter-spacing:1.5px;text-transform:uppercase}
+
+.collect-card{background:#fef9e7;border:2.5px solid #111;border-radius:18px;padding:20px 16px 16px;margin-bottom:10px;box-shadow:0 3px 0 #111}
+.collect-title{font-size:1.05rem;font-weight:900;color:#111;text-align:center;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.collect-sub{font-size:0.77rem;font-weight:700;color:#666;text-align:center;margin-bottom:14px;line-height:1.45}
+.collect-sub span{font-weight:900;color:#111}
+.collect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.collect-item{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:2.3rem;background:rgba(0,0,0,0.04);border-radius:12px;position:relative;gap:3px;padding:6px 2px;border:2px solid transparent;transition:all 0.3s}
+.collect-item.unlocked{border-color:#f5c842;background:#fffbf0;box-shadow:0 0 12px rgba(245,200,66,0.3)}
+.collect-item.locked{filter:grayscale(1) brightness(0.2)}
+.collect-item-name{font-size:0.55rem;font-weight:800;color:#888;text-align:center;letter-spacing:0.5px;text-transform:uppercase}
+.collect-item.unlocked .collect-item-name{color:#c9941a}
+.rarity-badge{position:absolute;top:4px;right:4px;font-size:0.45rem;font-weight:900;padding:2px 4px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.rarity-rare{background:#3b82f6;color:#fff}
+.rarity-epic{background:#8b5cf6;color:#fff}
+.rarity-legendary{background:#f59e0b;color:#111}
+
+/* disconnect btn */
+.disconnect-btn{
+width:100%;background:rgba(239,68,68,0.08);
+border:2px solid rgba(239,68,68,0.4);border-radius:12px;
+padding:13px;font-size:0.85rem;font-weight:800;
+color:#ef4444;cursor:pointer;transition:all 0.15s;
+text-align:center;margin-bottom:10px;
+}
+.disconnect-btn:hover{background:rgba(239,68,68,0.15);border-color:#ef4444}
+
+.invite-card{background:#fff;border:2.5px solid #111;border-radius:18px;padding:20px 16px;margin-bottom:10px;box-shadow:0 3px 0 #111;text-align:center}
+.invite-title{font-size:1.05rem;font-weight:900;color:#111;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.invite-sub{font-size:0.78rem;font-weight:700;color:#666;line-height:1.5;margin-bottom:14px}
+.invite-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.invite-stat{border:2px solid #111;border-radius:12px;padding:12px}
+.invite-stat-val{font-size:1.6rem;font-weight:900;color:#111;display:block}
+.invite-stat-lbl{font-size:0.6rem;font-weight:800;color:#999;letter-spacing:2px;text-transform:uppercase;display:block;margin-top:2px}
+.invite-btn{width:100%;margin-top:12px;background:linear-gradient(135deg,#2563eb,#1a4fd8);border:2px solid #111;border-radius:12px;padding:13px;font-size:0.85rem;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 3px 0 #111;transition:all 0.12s}
+.invite-btn:active{transform:translateY(2px);box-shadow:none}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:relative;z-index:20;background:#fff;border-top:2.5px solid #111;display:flex;flex-shrink:0;padding-bottom:env(safe-area-inset-bottom,2px);box-shadow:0 -2px 10px rgba(0,0,0,0.12)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 4px 6px;cursor:pointer;gap:3px}
+.nav-icon{font-size:1.25rem;width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+.nav-label{font-size:0.62rem;font-weight:700;color:#999}
+.nav-item.active .nav-label{color:#2563eb;font-weight:800}
+
+/* ── TOAST ── */
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-90px);background:rgba(10,25,45,0.95);color:#fff;font-size:0.82rem;font-weight:700;padding:11px 20px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.12);box-shadow:0 6px 24px rgba(0,0,0,0.45);z-index:999;transition:transform 0.38s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;backdrop-filter:blur(10px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── MODAL ── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-ov.show{display:flex}
+.modal-box{background:#fff;border:2.5px solid #111;border-radius:20px;padding:28px 24px;max-width:320px;width:100%;text-align:center;box-shadow:0 8px 0 #111;animation:popIn 0.38s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+.m-em{font-size:3.8rem;margin-bottom:8px}
+.m-rarity{display:inline-block;font-size:0.7rem;font-weight:900;padding:3px 10px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.m-rarity.common{background:#e5e7eb;color:#666}
+.m-rarity.rare{background:#3b82f6;color:#fff}
+.m-rarity.epic{background:#8b5cf6;color:#fff}
+.m-rarity.legendary{background:#f59e0b;color:#111}
+.m-title{font-size:1.35rem;font-weight:900;color:#111;margin-bottom:6px}
+.m-desc{font-size:0.82rem;color:#666;line-height:1.5;margin-bottom:12px}
+.m-reward{font-size:1.55rem;font-weight:900;color:#c9941a;margin-bottom:18px}
+.m-close{background:linear-gradient(135deg,#f5c842,#c9941a);border:2px solid #111;border-radius:12px;padding:12px 30px;font-size:0.85rem;font-weight:900;color:#111;cursor:pointer;box-shadow:0 3px 0 #111}
+.m-close:active{transform:translateY(1px);box-shadow:none}
+
+/* ── SILVER REWARD MODAL ── */
+.m-reward-silver{font-size:1.35rem;font-weight:900;color:#888;margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px}
+.m-reward-silver .sr-coin{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#d0d0d0,#909090);border:2px solid #707070;display:flex;align-items:center;justify-content:center;font-size:0.8rem}
+
+/* sparkle */
+.sp{position:fixed;pointer-events:none;z-index:999;animation:spPop 0.9s ease-out forwards}
+@keyframes spPop{0%{transform:translate(0,0) scale(1.2);opacity:1}100%{transform:translate(var(–tx),var(–ty)) scale(0);opacity:0}}
+
+/* DISCONNECT MODAL */
+.disconnect-modal-box{background:#fff;border:2.5px solid #111;border-radius:20px;padding:28px 24px;max-width:300px;width:100%;text-align:center;box-shadow:0 8px 0 #111;animation:popIn 0.3s cubic-bezier(.34,1.56,.64,1)}
+.disc-title{font-size:1.2rem;font-weight:900;color:#111;margin-bottom:8px}
+.disc-sub{font-size:0.82rem;color:#666;margin-bottom:20px;line-height:1.4}
+.disc-addr{font-size:0.78rem;font-weight:800;color:#2563eb;background:#eff6ff;border-radius:8px;padding:8px 14px;margin-bottom:20px;word-break:break-all}
+.disc-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.disc-cancel{background:#f3f4f6;border:2px solid #111;border-radius:12px;padding:12px;font-size:0.85rem;font-weight:800;color:#374151;cursor:pointer;box-shadow:0 3px 0 #111}
+.disc-cancel:active{transform:translateY(2px);box-shadow:none}
+.disc-confirm{background:linear-gradient(135deg,#ef4444,#dc2626);border:2px solid #111;border-radius:12px;padding:12px;font-size:0.85rem;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 3px 0 #111}
+.disc-confirm:active{transform:translateY(2px);box-shadow:none}
+</style>
+
+</head>
+<body>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+<!-- CHEST OPEN MODAL -->
+
+<div class="modal-ov" id="modal">
+  <div class="modal-box">
+    <div class="m-em" id="mEm">🪙</div>
+    <div class="m-rarity common" id="mRarity">Common</div>
+    <div class="m-title" id="mTitle">Gold Found!</div>
+    <div class="m-desc" id="mDesc">Ye pulled gold from the deep!</div>
+    <div class="m-reward" id="mReward">+25 Gold</div>
+    <button class="m-close" onclick="closeModal()">⚓ Collect</button>
+  </div>
+</div>
+
+<!-- DISCONNECT CONFIRM MODAL -->
+
+<div class="modal-ov" id="disconnectModal">
+  <div class="disconnect-modal-box">
+    <div style="font-size:2.5rem;margin-bottom:10px">🔌</div>
+    <div class="disc-title">Disconnect Wallet?</div>
+    <div class="disc-sub">Your progress is saved. You can reconnect anytime.</div>
+    <div class="disc-addr" id="discAddr">0x0000...0000</div>
+    <div class="disc-row">
+      <button class="disc-cancel" onclick="closeDisconnectModal()">Cancel</button>
+      <button class="disc-confirm" onclick="confirmDisconnect()">Disconnect</button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+
+  <!-- HEADER -->
+
+  <div class="header">
+    <div class="header-pill">
+      <div class="avatar-circle" id="avatarCircle">🏴‍☠️</div>
+      <div class="coin-badge">
+        <div class="coin-icon ci-gold">🪙</div>
+        <span id="goldAmt">0</span>
+      </div>
+      <div class="coin-badge">
+        <div class="coin-icon ci-silver">⚙️</div>
+        <span id="silverAmt">0</span>
+      </div>
+    </div>
+    <div class="mute-btn" onclick="toggleMute()">🔊</div>
+  </div>
+
+  <!-- WALLET BAR -->
+
+  <div class="wallet-connect-bar">
+    <div class="wallet-connect-btn" id="walletBtn" onclick="handleWalletClick()">
+      <div class="wcb-left">
+        <div class="wcb-dot" id="wcbDot"></div>
+        <div>
+          <div class="wcb-label" id="wcbLabel">Connect Wallet</div>
+          <div class="wcb-addr" id="wcbAddr">Tap to connect on Base Network</div>
+        </div>
+      </div>
+      <div class="wcb-action" id="wcbAction">CONNECT</div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+
+  <div class="page-content" id="pc">
+
+```
+<!-- ░░░ CLAIM ░░░ -->
+<div class="tab-panel active" id="tab-claim">
+
+  <div class="claim-banner" onclick="doClaim()">
+    <div class="claim-banner-title">Claim More For <span>0.1 USDC</span></div>
+    <div class="claim-banner-sub">Next free daily in: <span id="claimTimer">23h 59m 00s</span></div>
+  </div>
+
+  <!-- Economy explainer -->
+  <div class="economy-card">
+    <div class="economy-title">⚓ How It Works</div>
+    <div class="economy-row">
+      <div class="eco-icon">📋</div>
+      <div class="eco-text"><b>Complete Tasks</b> → Earn Silver ⚙️</div>
+      <div class="eco-arrow">→</div>
+    </div>
+    <div class="economy-row">
+      <div class="eco-icon">⚙️</div>
+      <div class="eco-text"><b>Spend Silver</b> → Open Treasure Chests</div>
+      <div class="eco-arrow">→</div>
+    </div>
+    <div class="economy-row">
+      <div class="eco-icon">📦</div>
+      <div class="eco-text"><b>Chests drop Gold 🪙</b> + rare Collectibles</div>
+      <div class="eco-arrow">→</div>
+    </div>
+    <div class="economy-row" style="margin-bottom:0">
+      <div class="eco-icon">🏆</div>
+      <div class="eco-text"><b>Gold</b> ranks you on the Leaderboard!</div>
+    </div>
+  </div>
+
+  <!-- Crab worker -->
+  <div class="worker-card">
+    <div class="wbg"></div><div class="wbg-wave"></div>
+    <div class="wbg-sand"></div><div class="wbg-tree">🌴</div>
+    <div class="wbg-crab">🦀</div>
+    <button class="worker-btn" onclick="hireWorker()">Hire For 3 USDC</button>
+  </div>
+  <div class="wcard">
+    <div class="wcard-title">Crab Miner</div>
+    <div class="wcard-sub">Hire a crab to work for you and collect 16 Gold per day.</div>
+  </div>
+
+  <div class="wcard" style="cursor:pointer" onclick="switchTab('game')">
+    <div class="wcard-title">Game</div>
+    <div class="wcard-sub">Spend Silver to open chests — win Gold and rare Collectibles!</div>
+  </div>
+  <div class="wcard" style="cursor:pointer" onclick="switchTab('tasks')">
+    <div class="wcard-title">Tasks</div>
+    <div class="wcard-sub">Complete tasks to earn Silver ⚙️ — then open chests for Gold!</div>
+  </div>
+
+  <!-- FAQ & RULES -->
+  <div class="faq-card">
+    <div class="faq-header" onclick="toggleFaq()">
+      <span style="display:flex;align-items:center;gap:8px">
+        <span>❓</span>
+        <span style="font-size:1rem;font-weight:900;color:#111">FAQ &amp; Rules</span>
+      </span>
+      <span class="faq-chevron" id="faqChevron">▼</span>
+    </div>
+
+    <div class="faq-body" id="faqBody">
+
+      <div class="faq-item">
+        <div class="faq-q">🪙 What is Gold?</div>
+        <div class="faq-a">Gold is the main currency and determines your rank on the Leaderboard. Earn it by opening chests, hiring workers, upgrading your ship, and daily claims.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">⚙️ What is Silver?</div>
+        <div class="faq-a">Silver is the key to opening treasure chests. You earn Silver exclusively by completing Tasks. You cannot buy Silver — you must earn it!</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">📦 How do I open chests?</div>
+        <div class="faq-a">Go to the Game tab. Each chest costs 1 Silver to open. Tap a chest to select it, then tap the open button. Chests drop Gold and rare Collectibles.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">🎁 What are Collectibles?</div>
+        <div class="faq-a">Collectibles are rare items found inside chests. There are 6 total — Rare (~8%), Epic (~3%), and Legendary (~1%) drop rates. Collecting all 6 unlocks Bonus Gold and Special Prizes!</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">🦀 What does the Crab Miner do?</div>
+        <div class="faq-a">Hiring the Crab Miner costs 3 USDC and passively earns you 16 Gold per day automatically. Great for climbing the leaderboard without doing anything!</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">⛵ What does upgrading my Ship do?</div>
+        <div class="faq-a">Each ship upgrade earns you more passive Gold daily. Level 2 earns +1 Gold/day, Level 3 earns +2 Gold/day, and so on. Higher levels cost more USDC.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">🏆 How does the Leaderboard work?</div>
+        <div class="faq-a">The leaderboard ranks the top 200 players by Gold earned this season — highest to lowest. Season 1 resets at the end of the countdown. Top players win real prizes!</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">🔗 Which blockchain is this on?</div>
+        <div class="faq-a">Golden Pirate Base runs on the <strong>Base Network</strong> (Chain ID 8453) — a fast, low-fee Ethereum Layer 2 by Coinbase. Connect with MetaMask or Coinbase Wallet.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">👥 How does the referral system work?</div>
+        <div class="faq-a">Share your invite link from the Profile tab. You earn 50% of Silver from any paid claims or ship purchases your friends make. Only real USDC transactions count.</div>
+      </div>
+
+      <div class="faq-item" style="margin-bottom:0">
+        <div class="faq-q">🛡️ Is my wallet safe?</div>
+        <div class="faq-a">Yes. We never ask for your private key or seed phrase. We only request wallet connection to verify your identity and record your score on Base. You are always in control.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ░░░ GAME ░░░ -->
+<div class="tab-panel" id="tab-game">
+
+  <div class="game-info-bar">
+    <div class="game-pill">
+      <span class="game-pill-val" id="g-silver">0</span>
+      <span class="game-pill-lbl">Silver ⚙️</span>
+    </div>
+    <div class="game-pill">
+      <span class="game-pill-val" id="g-gold">0</span>
+      <span class="game-pill-lbl">Gold 🪙</span>
+    </div>
+    <div class="game-pill">
+      <span class="game-pill-val" id="g-opened">0</span>
+      <span class="game-pill-lbl">Opened</span>
+    </div>
+  </div>
+
+  <div class="chest-hint">Tap a chest → costs <b style="color:#fff">1 Silver ⚙️</b> to open</div>
+
+  <div class="drop-rates">
+    <span class="dr-badge dr-common">🪙 Gold (common)</span>
+    <span class="dr-badge dr-rare">🔵 Rare ~8%</span>
+    <span class="dr-badge dr-epic">🟣 Epic ~3%</span>
+    <span class="dr-badge dr-legendary">🟡 Legendary ~1%</span>
+  </div>
+
+  <div class="chest-grid" id="chestGrid"></div>
+  <div id="gameAction"></div>
+
+</div>
+
+<!-- ░░░ SHIP ░░░ -->
+<div class="tab-panel" id="tab-ship">
+  <div class="ship-main-card">
+    <div class="ship-level-title">Ship Level <span id="shipLvlNum">1</span></div>
+    <div class="ship-sub">Upgrade your ship to earn passive Gold daily.</div>
+    <span class="ship-img-area">📦</span>
+    <div class="ship-stats">
+      <div class="ship-stat">
+        <span class="ship-stat-val" id="shipCurrent">+0</span>
+        <span class="ship-stat-lbl">Current Daily</span>
+      </div>
+      <div class="ship-stat">
+        <span class="ship-stat-val" id="shipNext">+1</span>
+        <span class="ship-stat-lbl">Next Level</span>
+      </div>
+    </div>
+  </div>
+  <button class="action-btn-blue" onclick="upgradeShip()">Upgrade For <span id="upgCost">1.0</span> USDC</button>
+</div>
+
+<!-- ░░░ LEADERS ░░░ -->
+<div class="tab-panel" id="tab-leaders">
+  <div class="season-card">
+    <div class="season-word">Season</div>
+    <div class="season-num">1</div>
+    <div class="season-sub-badge">☠️ Leaders Will Get Rewards ☠️</div>
+  </div>
+  <div class="time-card">
+    <div class="time-label">Time Left</div>
+    <div class="time-val" id="seasonTimer">5d 12h 30m</div>
+  </div>
+  <div class="rank-note">
+    Ranked <span>#1 highest → #200 lowest</span> Gold · Season earnings only · Updates live 🔴
+  </div>
+  <div class="lb-list" id="lbList"></div>
+</div>
+
+<!-- ░░░ TASKS ░░░ -->
+<div class="tab-panel" id="tab-tasks">
+
+  <!-- Silver explainer banner -->
+  <div style="background:linear-gradient(135deg,#4b5563,#374151);border:2.5px solid #111;border-radius:14px;padding:12px 16px;margin-bottom:10px;box-shadow:0 3px 0 #111;text-align:center">
+    <div style="font-size:0.78rem;font-weight:900;color:#d1d5db;letter-spacing:0.5px">
+      ⚙️ All task rewards are <span style="color:#e5e7eb;font-size:0.85rem">Silver</span> — spend Silver to open chests for Gold!
+    </div>
+  </div>
+
+  <div class="section-lbl">📋 Daily Tasks</div>
+
+  <div class="task-row">
+    <div class="task-icon">🌅</div>
+    <div class="task-body">
+      <div class="task-name">Daily Check-In</div>
+      <div class="task-desc">Log in today to claim free Silver.</div>
+      <div class="task-prog-wrap"><div class="task-prog-fill" style="width:100%"></div></div>
+    </div>
+    <div class="task-right">
+      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+5 Silver</div>
+      <button class="task-btn" id="tb-daily" onclick="claimTask('daily',0,5,this)">Claim</button>
+    </div>
+  </div>
+
+  <div class="task-row">
+    <div class="task-icon">📦</div>
+    <div class="task-body">
+      <div class="task-name">Open 3 Chests</div>
+      <div class="task-desc">Open 3 treasure chests in the Game tab.</div>
+      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-chests" style="width:0%"></div></div>
+    </div>
+    <div class="task-right">
+      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+10 Silver</div>
+      <button class="task-btn" id="tb-chests" onclick="claimTask('chests',3,10,this)" disabled>Claim</button>
+    </div>
+  </div>
+
+  <div class="task-row">
+    <div class="task-icon">📦</div>
+    <div class="task-body">
+      <div class="task-name">Open 10 Chests</div>
+      <div class="task-desc">Open 10 treasure chests total.</div>
+      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-chests10" style="width:0%"></div></div>
+    </div>
+    <div class="task-right">
+      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+25 Silver</div>
+      <button class="task-btn" id="tb-chests10" onclick="claimTask('chests10',10,25,this)" disabled>Claim</button>
+    </div>
+  </div>
+
+  <div class="task-row">
+    <div class="task-icon">🦀</div>
+    <div class="task-body">
+      <div class="task-name">Hire a Worker</div>
+      <div class="task-desc">Hire the Crab Miner from the Claim tab.</div>
+      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-worker" style="width:0%"></div></div>
+    </div>
+    <div class="task-right">
+      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+15 Silver</div>
+      <button class="task-btn" id="tb-worker" onclick="claimTask('worker',1,15,this)" disabled>Claim</button>
+    </div>
+  </div>
+
+  <div class="section-lbl" style="margin-top:6px">🏆 Achievements</div>
+
+  <div class="task-row">
+    <div class="task-icon">⛵</div>
+    <div class="task-body">
+      <div class="task-name">Ship Upgrades I</div>
+      <div class="task-desc">Upgrade your ship for the first time.</div>
+      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-ship" style="width:0%"></div></div>
+    </div>
+    <div class="task-right">
+      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+20 Silver</div>
+      <button class="task-btn" id="tb-ship" onclick="claimTask('ship',1,20,this)" disabled>Claim</button>
+    </div>
+  </div>
+
+  <div class="task-row">
+    <div class="task-icon">🎁</div>
+    <div class="task-body">
+      <div class="task-name">Find a Collectible</div>
+      <div class="task-desc">Discover a rare collectible inside a chest.</div>
+      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-collect" style="width:0%"></div></div>
+    </div>
+    <div class="task-right">
+      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+50 Silver</div>
+      <button class="task-btn" id="tb-collect" onclick="claimTask('collect',1,50,this)" disabled>Claim</button>
+    </div>
+  </div>
+
+  <div class="task-row">
+    <div class="task-icon">🪙</div>
+    <div class="task-body">
+      <div class="task-name">Gold Hoarder</div>
+      <div class="task-desc">Accumulate 100 Gold total from chests.</div>
+      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-gold100" style="width:0%"></div></div>
+    </div>
+    <div class="task-right">
+      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+30 Silver</div>
+      <button class="task-btn" id="tb-gold100" onclick="claimTask('gold100',100,30,this)" disabled>Claim</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ░░░ PROFILE ░░░ -->
+<div class="tab-panel" id="tab-profile">
+
+  <div class="profile-av-wrap">
+    <div class="profile-av">🏴‍☠️</div>
+  </div>
+
+  <div class="profile-name-row" id="profileNameRow" style="display:none">
+    <div class="profile-username" id="profileUsername">Cap'n Pirate</div>
+    <div class="profile-addr-text" id="profileAddrText">0x0000...0000 · Base Network</div>
+  </div>
+
+  <div class="profile-stats-grid">
+    <div class="profile-stat-card">
+      <div class="ps-icon">🪙</div>
+      <span class="ps-val" id="pr-gold">0</span>
+      <span class="ps-lbl">Total Gold</span>
+    </div>
+    <div class="profile-stat-card">
+      <div class="ps-icon">⚙️</div>
+      <span class="ps-val" id="pr-silver">0</span>
+      <span class="ps-lbl">Total Silver</span>
+    </div>
+    <div class="profile-stat-card">
+      <div class="ps-icon">📦</div>
+      <span class="ps-val" id="pr-chests">0</span>
+      <span class="ps-lbl">Chests Opened</span>
+    </div>
+    <div class="profile-stat-card">
+      <div class="ps-icon">🎁</div>
+      <span class="ps-val" id="pr-collect">0/6</span>
+      <span class="ps-lbl">Collectibles</span>
+    </div>
+  </div>
+
+  <div class="collect-card">
+    <div class="collect-title">Your Collectibles</div>
+    <div class="collect-sub">Found inside chests. <span>Rare drops only!</span><br>Collect all 6 for Bonus Gold &amp; Prizes!</div>
+    <div class="collect-grid" id="collectGrid"></div>
+  </div>
+
+  <!-- Disconnect button -->
+  <button class="disconnect-btn" id="disconnectBtn" onclick="openDisconnectModal()" style="display:none">
+    🔌 Disconnect Wallet
+  </button>
+
+  <div class="invite-card">
+    <div class="invite-title">Invite Friends</div>
+    <div class="invite-sub">Share your link and earn 50% of Silver your friends purchased. Only paid claims and ship purchases are counted.</div>
+    <div class="invite-stats">
+      <div class="invite-stat">
+        <span class="invite-stat-val" id="friendCnt">0</span>
+        <span class="invite-stat-lbl">Friends</span>
+      </div>
+      <div class="invite-stat">
+        <span class="invite-stat-val" id="silverEarned">0</span>
+        <span class="invite-stat-lbl">Silver Earned</span>
+      </div>
+    </div>
+    <button class="invite-btn" onclick="copyInvite()">🔗 Copy Invite Link</button>
+  </div>
+
+  <div style="height:6px"></div>
+</div>
+```
+
+  </div><!-- /page-content -->
+
+  <nav class="bottom-nav">
+    <div class="nav-item active" id="nav-claim" onclick="switchTab('claim')"><div class="nav-icon">🎁</div><span class="nav-label">Claim</span></div>
+    <div class="nav-item" id="nav-game" onclick="switchTab('game')"><div class="nav-icon">🎮</div><span class="nav-label">Game</span></div>
+    <div class="nav-item" id="nav-ship" onclick="switchTab('ship')"><div class="nav-icon">⛵</div><span class="nav-label">Ship</span></div>
+    <div class="nav-item" id="nav-leaders" onclick="switchTab('leaders')"><div class="nav-icon">🏆</div><span class="nav-label">Leaders</span></div>
+    <div class="nav-item" id="nav-tasks" onclick="switchTab('tasks')"><div class="nav-icon">📋</div><span class="nav-label">Tasks</span></div>
+    <div class="nav-item" id="nav-profile" onclick="switchTab('profile')"><div class="nav-icon">👤</div><span class="nav-label">Profile</span></div>
+  </nav>
+
+</div><!-- /app -->
+
+<script>
+// ════════════════════════════════════════════
+// COLLECTIBLES  (drop from chests only)
+// ════════════════════════════════════════════
+const COLLECTIBLES = [
+  { id:'rum',    em:'🍶', name:'Rum Bottle',  rarity:'rare',      rarityClass:'rare',      dropRate:0.08  },
+  { id:'hat',    em:'🎩', name:'Pirate Hat',  rarity:'rare',      rarityClass:'rare',      dropRate:0.07  },
+  { id:'map',    em:'🗺️', name:'Lost Map',    rarity:'epic',      rarityClass:'epic',      dropRate:0.03  },
+  { id:'anchor', em:'⚓', name:'Gold Anchor', rarity:'epic',      rarityClass:'epic',      dropRate:0.025 },
+  { id:'cannon', em:'💣', name:'Cannon',      rarity:'legendary', rarityClass:'legendary', dropRate:0.01  },
+  { id:'wheel',  em:'🎡', name:'Ship Wheel',  rarity:'legendary', rarityClass:'legendary', dropRate:0.008 },
+];
+
+// ════════════════════════════════════════════
+// GOLD DROP TABLE  (chests only give Gold)
+// ════════════════════════════════════════════
+const GOLD_DROPS = [
+  { gold:5,   weight:35 },
+  { gold:10,  weight:25 },
+  { gold:20,  weight:18 },
+  { gold:35,  weight:12 },
+  { gold:50,  weight:6  },
+  { gold:100, weight:3  },
+  { gold:200, weight:1  },
+];
+
+// ════════════════════════════════════════════
+// LEADERBOARD SEED DATA
+// ════════════════════════════════════════════
+let leaderboard = [
+  { id:'musik',  name:'Musik',        addr:'0x1a2b...3c4d', gold:3067.8, av:'🎭', avBg:'#111',    avColor:'#fff' },
+  { id:'kraken', name:'Kraken 🔵🟡',  addr:'0xdead...beef', gold:2742.3, av:'🐙', avBg:'#7c3aed', avColor:'#fff' },
+  { id:'martin', name:'Martin',       addr:'0x1111...2222', gold:2682.9, av:'🏙️', avBg:'#6d28d9', avColor:'#fff' },
+  { id:'stick',  name:'Mr.Stick',     addr:'0xf00d...cafe', gold:2310.2, av:'🕺', avBg:'#f3f4f6', avColor:'#111' },
+  { id:'foxy',   name:'FoxyTrader',   addr:'0x8888...0000', gold:1890.5, av:'🦊', avBg:'#fef3c7', avColor:'#111' },
+  { id:'pearl',  name:'PearlDiver',   addr:'0x4444...5555', gold:1420.0, av:'🐚', avBg:'#ecfdf5', avColor:'#111' },
+  { id:'shadow', name:'Sh4d0wPirate', addr:'0x7777...8888', gold: 980.1, av:'☠️', avBg:'#1f2937', avColor:'#fff' },
+  { id:'sandy',  name:'Sandy',        addr:'0x2222...3333', gold: 540.5, av:'🏖️', avBg:'#fef3c7', avColor:'#111' },
+  { id:'newbie', name:'NewSailor',    addr:'0x3333...4444', gold:  45.0, av:'⛵', avBg:'#dbeafe', avColor:'#111' },
+];
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+let G = {
+  connected:     false,
+  wallet:        null,
+  playerId:      null,
+  gold:          0,
+  silver:        0,
+  seasonGold:    0,
+  totalGoldFromChests: 0,
+  workerHired:   false,
+  shipLvl:       1,
+  shipUpgrades:  0,
+  chestsOpenedTotal: 0,
+  chestsOpened:  0,       // for current 3x3 cycle
+  collectiblesOwned: new Set(),
+  tasksDone:     new Set(),
+  selectedChest: null,
+  openedEmojis:  {},
+  muted:         false,
+};
+
+// ════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  document.getElementById('pc').scrollTop = 0;
+  if (name === 'game')    { renderChests(); }
+  if (name === 'leaders') { renderLeaderboard(); }
+  if (name === 'profile') { renderCollectibles(); renderProfileStats(); }
+}
+
+// ════════════════════════════════════════════
+// WALLET CONNECT / DISCONNECT
+// ════════════════════════════════════════════
+function handleWalletClick() {
+  if (G.connected) {
+    openDisconnectModal();
+  } else {
+    connectWallet();
+  }
+}
+
+async function connectWallet() {
+  if (G.connected) return;
+
+  if (typeof window.ethereum !== 'undefined') {
+    try {
+      const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      try {
+        await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x2105' }] });
+      } catch(e) {
+        if (e.code === 4902) {
+          await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [{
+            chainId: '0x2105', chainName: 'Base',
+            nativeCurrency: { name: 'Ethereum', symbol: 'ETH', decimals: 18 },
+            rpcUrls: ['https://mainnet.base.org'],
+            blockExplorerUrls: ['https://basescan.org']
+          }]});
+        }
+      }
+      onConnected(accs[0]);
+    } catch(e) {
+      toast('❌ Connection rejected');
+    }
+  } else {
+    // Demo mode
+    const fake = '0x' + [...Array(40)].map(() => '0123456789abcdef'[Math.floor(Math.random()*16)]).join('');
+    onConnected(fake);
+    toast('⚓ Demo mode — no wallet detected');
+  }
+}
+
+function onConnected(addr) {
+  G.connected  = true;
+  G.wallet     = addr;
+  G.playerId   = 'player_' + addr.slice(2, 10);
+  G.silver     = 5; // small starter silver
+
+  const short = addr.slice(0, 6) + '...' + addr.slice(-4);
+
+  // Update wallet bar
+  const btn = document.getElementById('walletBtn');
+  btn.classList.add('connected');
+  document.getElementById('wcbDot').classList.add('on');
+  document.getElementById('wcbLabel').textContent = 'Wallet Connected';
+  document.getElementById('wcbAddr').textContent  = short + ' · Base Network';
+  document.getElementById('wcbAction').textContent = 'DISCONNECT';
+
+  // Profile section
+  document.getElementById('profileNameRow').style.display = 'block';
+  document.getElementById('profileUsername').textContent  = 'Cap\'n ' + addr.slice(2, 6).toUpperCase();
+  document.getElementById('profileAddrText').textContent  = short + ' · Base Network';
+  document.getElementById('disconnectBtn').style.display  = 'block';
+
+  // Add to leaderboard
+  if (!leaderboard.find(p => p.id === G.playerId)) {
+    leaderboard.push({
+      id:      G.playerId,
+      name:    short,
+      addr:    short,
+      gold:    0,
+      av:      '🏴‍☠️',
+      avBg:    'linear-gradient(135deg,#a8d8f0,#5ba8d4)',
+      avColor: '#111',
+      isMe:    true,
+      isNew:   true,
+    });
+  }
+
+  syncStats();
+  renderChests();
+  renderLeaderboard();
+  toast('🏴‍☠️ Welcome aboard, Captain! You\'re on the leaderboard.');
+}
+
+function openDisconnectModal() {
+  if (!G.connected) return;
+  const short = G.wallet ? G.wallet.slice(0,6)+'...'+G.wallet.slice(-4) : '';
+  document.getElementById('discAddr').textContent = G.wallet || short;
+  document.getElementById('disconnectModal').classList.add('show');
+}
+
+function closeDisconnectModal() {
+  document.getElementById('disconnectModal').classList.remove('show');
+}
+
+function confirmDisconnect() {
+  closeDisconnectModal();
+
+  // Remove player from leaderboard
+  leaderboard = leaderboard.filter(p => p.id !== G.playerId);
+
+  // Reset state
+  G.connected  = false;
+  G.wallet     = null;
+  G.playerId   = null;
+  G.gold       = 0;
+  G.silver     = 0;
+  G.seasonGold = 0;
+  G.totalGoldFromChests = 0;
+  G.workerHired = false;
+  G.shipLvl    = 1;
+  G.shipUpgrades = 0;
+  G.chestsOpenedTotal = 0;
+  G.chestsOpened = 0;
+  G.collectiblesOwned = new Set();
+  G.tasksDone  = new Set();
+  G.selectedChest = null;
+  G.openedEmojis = {};
+
+  // Reset wallet bar
+  const btn = document.getElementById('walletBtn');
+  btn.classList.remove('connected');
+  document.getElementById('wcbDot').classList.remove('on');
+  document.getElementById('wcbLabel').textContent = 'Connect Wallet';
+  document.getElementById('wcbAddr').textContent  = 'Tap to connect on Base Network';
+  document.getElementById('wcbAction').textContent = 'CONNECT';
+
+  // Reset profile
+  document.getElementById('profileNameRow').style.display = 'none';
+  document.getElementById('disconnectBtn').style.display  = 'none';
+
+  // Reset task buttons
+  ['tb-daily','tb-chests','tb-chests10','tb-worker','tb-ship','tb-collect','tb-gold100'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) { b.disabled = (id !== 'tb-daily'); b.textContent = 'Claim'; b.style.background = ''; b.style.color = ''; }
+  });
+  ['tp-chests','tp-chests10','tp-worker','tp-ship','tp-collect','tp-gold100'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.style.width = '0%';
+  });
+
+  syncStats();
+  renderChests();
+  renderLeaderboard();
+  renderCollectibles();
+  renderProfileStats();
+  updateShipUI();
+  toast('👋 Wallet disconnected. See you soon, Captain!');
+}
+
+// ════════════════════════════════════════════
+// LEADERBOARD  — highest → lowest gold, max 200 players
+// ════════════════════════════════════════════
+function updateMyLBScore() {
+  const entry = leaderboard.find(p => p.id === G.playerId);
+  if (entry) entry.gold = parseFloat(G.seasonGold.toFixed(1));
+}
+
+function renderLeaderboard() {
+  const list = document.getElementById('lbList');
+  if (!list) return;
+  // Sort highest → lowest, cap at 200
+  const sorted = [...leaderboard]
+    .sort((a, b) => b.gold - a.gold)
+    .slice(0, 200);
+
+  list.innerHTML = '';
+
+  // If player is connected but outside top 200, show them separately at bottom
+  const myEntry = G.playerId ? leaderboard.find(p => p.id === G.playerId) : null;
+  const myRank  = G.playerId ? [...leaderboard].sort((a,b)=>b.gold-a.gold).findIndex(p=>p.id===G.playerId)+1 : null;
+  const inTop200 = myRank !== null && myRank <= 200;
+
+  sorted.forEach((player, idx) => {
+    const rank = idx + 1;
+    const isMe = player.id === G.playerId;
+
+    const row = document.createElement('div');
+    row.className = 'lb-row' + (isMe ? ' mine' : '') + (player.isNew ? ' lb-new' : '');
+    player.isNew = false;
+
+    let rankDisplay = rank;
+    if (rank === 1) rankDisplay = '🥇';
+    else if (rank === 2) rankDisplay = '🥈';
+    else if (rank === 3) rankDisplay = '🥉';
+
+    row.innerHTML = `
+      <div class="lb-rank-num">${rankDisplay}</div>
+      <div class="lb-av" style="background:${player.avBg};color:${player.avColor}">${player.av}</div>
+      <div class="lb-info">
+        <div class="lb-name">${player.name}${isMe ? ' <span style="font-size:0.62rem;color:#2563eb;font-weight:900">(You)</span>' : ''}</div>
+        <div class="lb-sub">${player.addr}</div>
+      </div>
+      <div class="lb-pill">
+        <div class="lb-coin">🪙</div>
+        <span>${player.gold.toLocaleString()}</span>
+      </div>`;
+    list.appendChild(row);
+  });
+
+  // If player connected but outside top 200, show their rank below the list
+  if (myEntry && !inTop200 && myRank !== null) {
+    const divider = document.createElement('div');
+    divider.style.cssText = 'text-align:center;font-size:0.7rem;font-weight:800;color:rgba(255,255,255,0.5);padding:6px 0;letter-spacing:1px';
+    divider.textContent = '· · ·';
+    list.appendChild(divider);
+
+    const yourRow = document.createElement('div');
+    yourRow.className = 'lb-row mine lb-new';
+    yourRow.innerHTML = `
+      <div class="lb-rank-num">${myRank}</div>
+      <div class="lb-av" style="background:${myEntry.avBg};color:${myEntry.avColor}">${myEntry.av}</div>
+      <div class="lb-info">
+        <div class="lb-name">${myEntry.name} <span style="font-size:0.62rem;color:#2563eb;font-weight:900">(You)</span></div>
+        <div class="lb-sub">${myEntry.addr} · Earn more Gold to enter Top 200!</div>
+      </div>
+      <div class="lb-pill">
+        <div class="lb-coin">🪙</div>
+        <span>${myEntry.gold.toLocaleString()}</span>
+      </div>`;
+    list.appendChild(yourRow);
+  }
+
+  // Player count badge
+  const totalPlayers = leaderboard.length;
+  const countNote = document.createElement('div');
+  countNote.style.cssText = 'text-align:center;font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.5);padding:10px 0 4px';
+  countNote.textContent = `Showing ${Math.min(totalPlayers, 200)} of ${totalPlayers} pirate${totalPlayers !== 1 ? 's' : ''} · Max 200 ranked`;
+  list.appendChild(countNote);
+}
+
+// ════════════════════════════════════════════
+// CHEST GAME  — drops Gold + rare Collectibles
+// ════════════════════════════════════════════
+function chestSVG() {
+  return `<svg viewBox="0 0 80 68" xmlns="http://www.w3.org/2000/svg" style="width:78%;height:78%">
+    <rect x="6" y="30" width="68" height="30" rx="5" fill="#7a4f28" stroke="#3a2008" stroke-width="2.5"/>
+    <rect x="6" y="14" width="68" height="20" rx="5" fill="#9c6430" stroke="#3a2008" stroke-width="2.5"/>
+    <rect x="6" y="30" width="68" height="6"  fill="#5e3a18" stroke="#3a2008" stroke-width="1.5"/>
+    <rect x="6" y="40" width="68" height="5"  fill="#5e3a18" stroke="#3a2008" stroke-width="1.5"/>
+    <rect x="30" y="26" width="20" height="13" rx="3" fill="#c9941a" stroke="#3a2008" stroke-width="1.5"/>
+    <circle cx="40" cy="26" r="5.5" fill="none" stroke="#3a2008" stroke-width="1.8"/>
+    <text x="40" y="26" text-anchor="middle" dominant-baseline="middle" font-size="9" fill="rgba(0,0,0,0.18)">☠</text>
+    <text x="8"  y="65" font-size="11">🌿</text>
+    <text x="58" y="67" font-size="10">🌿</text>
+  </svg>`;
+}
+
+function renderChests() {
+  const grid = document.getElementById('chestGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  for (let i = 0; i < 9; i++) {
+    const div = document.createElement('div');
+    div.className = 'chest-cell';
+    const opened = G.openedEmojis[i];
+    if (opened) {
+      div.classList.add('opened');
+      if (opened.rare) div.classList.add('rare-glow');
+      div.textContent = opened.em;
+    } else {
+      div.innerHTML = chestSVG();
+      if (G.selectedChest === i) div.classList.add('selected');
+      div.onclick = () => selectChest(i);
+    }
+    grid.appendChild(div);
+  }
+  renderGameAction();
+
+  // Sync game pills
+  const gs = document.getElementById('g-silver'); if(gs) gs.textContent = parseFloat(G.silver.toFixed(1));
+  const gg = document.getElementById('g-gold');   if(gg) gg.textContent = parseFloat(G.gold.toFixed(1));
+  const go = document.getElementById('g-opened'); if(go) go.textContent = G.chestsOpenedTotal;
+}
+
+function selectChest(i) {
+  if (!G.connected) { toast('⚓ Connect wallet first!'); return; }
+  if (G.silver < 1) { toast('⚙️ No Silver! Complete tasks to earn Silver first.'); return; }
+  G.selectedChest = i;
+  renderChests();
+}
+
+function renderGameAction() {
+  const el = document.getElementById('gameAction');
+  if (!el) return;
+  if (!G.connected) {
+    el.innerHTML = `<div class="action-btn-disabled">Connect Wallet to Play</div>`;
+  } else if (G.silver < 1) {
+    el.innerHTML = `<div class="action-btn-disabled">No Silver Left — Complete Tasks to Earn More ⚙️</div>`;
+  } else if (G.selectedChest !== null) {
+    el.innerHTML = `<button class="action-btn-blue" onclick="openChest()">🔑 Open Chest (1 Silver ⚙️)</button>`;
+  } else {
+    el.innerHTML = `<div class="action-btn-disabled" style="color:#555;background:#e9ecef">👆 Tap a Chest to Select</div>`;
+  }
+}
+
+function openChest() {
+  if (G.selectedChest === null || G.silver < 1) return;
+  G.silver = Math.max(0, G.silver - 1);
+  const idx = G.selectedChest;
+  G.selectedChest = null;
+  G.chestsOpenedTotal++;
+  G.chestsOpened++;
+
+  // ── 1. Roll for collectible (rarest first) ──
+  let collectibleDrop = null;
+  const sortedCols = [...COLLECTIBLES].sort((a, b) => a.dropRate - b.dropRate);
+  for (const col of sortedCols) {
+    if (!G.collectiblesOwned.has(col.id) && Math.random() < col.dropRate) {
+      collectibleDrop = col;
+      break;
+    }
+  }
+
+  let result;
+  if (collectibleDrop) {
+    // ── Collectible drop + bonus gold ──
+    G.collectiblesOwned.add(collectibleDrop.id);
+    const bonusGold = collectibleDrop.rarity === 'legendary' ? 100 :
+                      collectibleDrop.rarity === 'epic'      ? 50  : 25;
+    G.gold         += bonusGold;
+    G.seasonGold   += bonusGold;
+    G.totalGoldFromChests += bonusGold;
+
+    result = {
+      em:          collectibleDrop.em,
+      rare:        true,
+      rarityClass: collectibleDrop.rarityClass,
+      rarityLabel: collectibleDrop.rarity.charAt(0).toUpperCase() + collectibleDrop.rarity.slice(1),
+      title:       collectibleDrop.name + ' Collectible!',
+      desc:        `A ${collectibleDrop.rarity} collectible found! Check your Profile to see it.`,
+      reward:      `+${bonusGold} Gold 🪙  +  Collectible Unlocked!`,
+    };
+  } else {
+    // ── Gold only drop ──
+    const total = GOLD_DROPS.reduce((s, r) => s + r.weight, 0);
+    let roll = Math.random() * total, drop = GOLD_DROPS[GOLD_DROPS.length - 1];
+    for (const d of GOLD_DROPS) { roll -= d.weight; if (roll <= 0) { drop = d; break; } }
+
+    G.gold         += drop.gold;
+    G.seasonGold   += drop.gold;
+    G.totalGoldFromChests += drop.gold;
+
+    result = {
+      em:          drop.gold >= 100 ? '💎' : drop.gold >= 50 ? '💰' : drop.gold >= 20 ? '🪙' : '🥇',
+      rare:        false,
+      rarityClass: drop.gold >= 100 ? 'epic' : drop.gold >= 50 ? 'rare' : 'common',
+      rarityLabel: drop.gold >= 100 ? 'Epic' : drop.gold >= 50 ? 'Rare' : 'Common',
+      title:       `+${drop.gold} Gold Found!`,
+      desc:        drop.gold >= 100 ? 'A massive haul! The chest overflows with gold!'
+                 : drop.gold >= 50  ? 'A hefty stash of gold coins tumbles out!'
+                 : 'Gold coins spill from the chest. Every piece counts!',
+      reward:      `+${drop.gold} Gold 🪙`,
+    };
+  }
+
+  // Reset grid when all 9 opened
+  if (G.chestsOpened >= 9) {
+    G.chestsOpened = 0;
+    G.openedEmojis = {};
+    setTimeout(() => { renderChests(); toast('🗺️ New chests have appeared!'); }, 700);
+  } else {
+    G.openedEmojis[idx] = { em: result.em, rare: result.rare };
+  }
+
+  updateMyLBScore();
+  syncStats();
+  renderChests();
+  checkTasks();
+  showModal(result.em, result.rarityClass, result.rarityLabel, result.title, result.desc, result.reward);
+  spawnSp(result.em, result.rare);
+}
+
+// ════════════════════════════════════════════
+// COLLECTIBLES (Profile)
+// ════════════════════════════════════════════
+function renderCollectibles() {
+  const grid = document.getElementById('collectGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  COLLECTIBLES.forEach(col => {
+    const owned = G.collectiblesOwned.has(col.id);
+    const div = document.createElement('div');
+    div.className = 'collect-item ' + (owned ? 'unlocked' : 'locked');
+    div.innerHTML = `
+      <span>${col.em}</span>
+      <div class="collect-item-name">${col.name}</div>
+      ${owned ? `<span class="rarity-badge rarity-${col.rarityClass}">${col.rarity}</span>` : ''}`;
+    grid.appendChild(div);
+  });
+}
+
+function renderProfileStats() {
+  document.getElementById('pr-gold').textContent    = parseFloat(G.gold.toFixed(1));
+  document.getElementById('pr-silver').textContent  = parseFloat(G.silver.toFixed(1));
+  document.getElementById('pr-chests').textContent  = G.chestsOpenedTotal;
+  document.getElementById('pr-collect').textContent = G.collectiblesOwned.size + '/6';
+}
+
+// ════════════════════════════════════════════
+// CLAIM
+// ════════════════════════════════════════════
+let claimUsed = false, claimIv;
+function doClaim() {
+  if (!G.connected) { connectWallet(); return; }
+  if (claimUsed) { toast('⏳ Already claimed today!'); return; }
+  claimUsed = true;
+  // Claim gives Gold directly
+  G.gold += 10;
+  G.seasonGold += 10;
+  updateMyLBScore();
+  syncStats();
+  checkTasks();
+  toast('🎁 +10 Gold claimed! Complete Tasks to earn Silver ⚙️');
+  startClaimTimer(86400);
+}
+
+function startClaimTimer(secs) {
+  clearInterval(claimIv); let t = secs;
+  claimIv = setInterval(() => {
+    t--;
+    const h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), s = t % 60;
+    const el = document.getElementById('claimTimer');
+    if (el) el.textContent = `${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+    if (t <= 0) { clearInterval(claimIv); claimUsed = false; if (el) el.textContent = 'Ready!'; }
+  }, 1000);
+}
+
+// ════════════════════════════════════════════
+// WORKER
+// ════════════════════════════════════════════
+function hireWorker() {
+  if (!G.connected) { connectWallet(); return; }
+  if (G.workerHired) { toast('🦀 Already hired!'); return; }
+  G.workerHired = true;
+  G.gold += 16; G.seasonGold += 16;
+  updateMyLBScore();
+  syncStats(); checkTasks();
+  toast('✅ Crab Miner hired! +16 Gold/day');
+}
+
+// ════════════════════════════════════════════
+// SHIP
+// ════════════════════════════════════════════
+const SHIP_COSTS = [1.0, 2.0, 3.5, 5.0, 8.0, 12.0];
+function upgradeShip() {
+  if (!G.connected) { connectWallet(); return; }
+  G.shipUpgrades++;
+  G.shipLvl = G.shipUpgrades + 1;
+  syncStats(); checkTasks(); updateShipUI();
+  toast(`⛵ Ship Level ${G.shipLvl}! Earning more Gold passively.`);
+}
+function updateShipUI() {
+  document.getElementById('shipLvlNum').textContent  = G.shipLvl;
+  document.getElementById('shipCurrent').textContent = '+' + (G.shipLvl - 1);
+  document.getElementById('shipNext').textContent    = '+' + G.shipLvl;
+  document.getElementById('upgCost').textContent     = SHIP_COSTS[Math.min(G.shipUpgrades, 5)].toFixed(1);
+}
+
+// ════════════════════════════════════════════
+// TASKS  — all rewards are Silver ⚙️
+// ════════════════════════════════════════════
+function claimTask(id, threshold, silverReward, btn) {
+  if (G.tasksDone.has(id)) return;
+  G.tasksDone.add(id);
+  G.silver += silverReward;           // ← Silver reward
+  syncStats();
+  btn.disabled = true;
+  btn.textContent = '✓ Claimed';
+  btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+  btn.style.color = '#fff';
+  btn.style.borderColor = '#15803d';
+  toast(`⚙️ +${silverReward} Silver earned! Open a chest to win Gold.`);
+}
+
+function checkTasks() {
+  // chests 3
+  const c3p = Math.min(G.chestsOpenedTotal / 3, 1);
+  const tp3 = document.getElementById('tp-chests'); if(tp3) tp3.style.width = (c3p * 100) + '%';
+  if (G.chestsOpenedTotal >= 3 && !G.tasksDone.has('chests'))    { const b = document.getElementById('tb-chests');    if(b) b.disabled = false; }
+
+  // chests 10
+  const c10p = Math.min(G.chestsOpenedTotal / 10, 1);
+  const tp10 = document.getElementById('tp-chests10'); if(tp10) tp10.style.width = (c10p * 100) + '%';
+  if (G.chestsOpenedTotal >= 10 && !G.tasksDone.has('chests10')) { const b = document.getElementById('tb-chests10');  if(b) b.disabled = false; }
+
+  // worker
+  if (G.workerHired && !G.tasksDone.has('worker')) {
+    const b = document.getElementById('tb-worker'); if(b) b.disabled = false;
+    const t = document.getElementById('tp-worker'); if(t) t.style.width = '100%';
+  }
+
+  // ship
+  if (G.shipUpgrades > 0 && !G.tasksDone.has('ship')) {
+    const b = document.getElementById('tb-ship'); if(b) b.disabled = false;
+    const t = document.getElementById('tp-ship'); if(t) t.style.width = '100%';
+  }
+
+  // collectible
+  if (G.collectiblesOwned.size > 0 && !G.tasksDone.has('collect')) {
+    const b = document.getElementById('tb-collect'); if(b) b.disabled = false;
+    const t = document.getElementById('tp-collect'); if(t) t.style.width = '100%';
+  }
+
+  // gold 100
+  const gp = Math.min(G.totalGoldFromChests / 100, 1);
+  const tpg = document.getElementById('tp-gold100'); if(tpg) tpg.style.width = (gp * 100) + '%';
+  if (G.totalGoldFromChests >= 100 && !G.tasksDone.has('gold100')) { const b = document.getElementById('tb-gold100'); if(b) b.disabled = false; }
+}
+
+// ════════════════════════════════════════════
+// SYNC STATS
+// ════════════════════════════════════════════
+function syncStats() {
+  document.getElementById('goldAmt').textContent   = parseFloat(G.gold.toFixed(1));
+  document.getElementById('silverAmt').textContent = parseFloat(G.silver.toFixed(1));
+  // profile
+  renderProfileStats();
+  // game pills
+  const gs = document.getElementById('g-silver'); if(gs) gs.textContent = parseFloat(G.silver.toFixed(1));
+  const gg = document.getElementById('g-gold');   if(gg) gg.textContent = parseFloat(G.gold.toFixed(1));
+  const go = document.getElementById('g-opened'); if(go) go.textContent = G.chestsOpenedTotal;
+  renderGameAction();
+  // live leaderboard update
+  if (document.getElementById('tab-leaders').classList.contains('active')) renderLeaderboard();
+}
+
+// ════════════════════════════════════════════
+// MODAL
+// ════════════════════════════════════════════
+function showModal(em, rarityClass, rarityLabel, title, desc, reward) {
+  document.getElementById('mEm').textContent    = em;
+  const rb = document.getElementById('mRarity');
+  rb.textContent = rarityLabel;
+  rb.className   = 'm-rarity ' + rarityClass;
+  document.getElementById('mTitle').textContent  = title;
+  document.getElementById('mDesc').textContent   = desc;
+  document.getElementById('mReward').textContent = reward;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+// ════════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════════
+let toastT;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ════════════════════════════════════════════
+// SPARKLES
+// ════════════════════════════════════════════
+function spawnSp(em, rare) {
+  const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+  const pars = rare ? [em, '✨', '💫', '⭐', '🌟', '✨', '💰'] : [em, '🪙', '✨', '🪙'];
+  pars.forEach((e, i) => {
+    setTimeout(() => {
+      const s = document.createElement('div');
+      s.className = 'sp';
+      const a = (i / pars.length) * Math.PI * 2, d = 55 + Math.random() * 35;
+      s.style.cssText = `left:${cx}px;top:${cy}px;font-size:${rare ? 1.4 : 1.1}rem;--tx:${Math.cos(a)*d}px;--ty:${Math.sin(a)*d - 40}px`;
+      s.textContent = e;
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 900);
+    }, i * 60);
+  });
+}
+
+// ════════════════════════════════════════════
+// FAQ
+// ════════════════════════════════════════════
+function toggleFaq() {
+  const body    = document.getElementById('faqBody');
+  const chevron = document.getElementById('faqChevron');
+  body.classList.toggle('open');
+  chevron.classList.toggle('open');
+}
+
+// ════════════════════════════════════════════
+// MISC
+// ════════════════════════════════════════════
+function toggleMute() {
+  G.muted = !G.muted;
+  document.querySelector('.mute-btn').textContent = G.muted ? '🔇' : '🔊';
+}
+
+function copyInvite() {
+  const link = 'https://base.app/golden-pirate-base?ref=' + (G.wallet || 'demo');
+  navigator.clipboard?.writeText(link)
+    .then(() => toast('🔗 Invite link copied!'))
+    .catch(() => toast('🔗 ' + link));
+}
+
+// Season countdown
+let seasonSecs = 5 * 86400 + 12 * 3600 + 30 * 60;
+setInterval(() => {
+  if (seasonSecs > 0) seasonSecs--;
+  const d = Math.floor(seasonSecs / 86400),
+        h = Math.floor((seasonSecs % 86400) / 3600),
+        m = Math.floor((seasonSecs % 3600) / 60);
+  const el = document.getElementById('seasonTimer');
+  if (el) el.textContent = `${d}d ${h}h ${m}m`;
+}, 60000);
+
+// ── INIT ──
+renderChests();
+renderLeaderboard();
+renderCollectibles();
+renderProfileStats();
+updateShipUI();
+startClaimTimer(86399);
+setTimeout(connectWallet, 500);
+</script>
+
+</body>
+</html>
