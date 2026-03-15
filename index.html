@@ -2,39 +2,14 @@
 
 <html lang="en">
 <head>
-<script src="https://cdn.jsdelivr.net/npm/@farcaster/miniapp-sdk/dist/index.min.js"></script>
-<script>
-// Call ready() immediately as soon as possible
-(async function callReady() {
+<script type="module">
+  import { sdk } from 'https://esm.sh/@farcaster/miniapp-sdk';
   try {
-    const sdk = window.sdk || window.frameSDK || window.MiniAppSDK;
-    if (sdk && sdk.actions && sdk.actions.ready) {
-      await sdk.actions.ready();
-      console.log('✅ ready() called immediately');
-      return;
-    }
-  } catch(e) {}
-  // Also try on DOMContentLoaded
-  document.addEventListener('DOMContentLoaded', async function() {
-    try {
-      const sdk = window.sdk || window.frameSDK || window.MiniAppSDK;
-      if (sdk && sdk.actions && sdk.actions.ready) {
-        await sdk.actions.ready();
-        console.log('✅ ready() called on DOMContentLoaded');
-      }
-    } catch(e) {}
-  });
-  // And on load as final fallback
-  window.addEventListener('load', async function() {
-    try {
-      const sdk = window.sdk || window.frameSDK || window.MiniAppSDK;
-      if (sdk && sdk.actions && sdk.actions.ready) {
-        await sdk.actions.ready();
-        console.log('✅ ready() called on load');
-      }
-    } catch(e) { console.log('ℹ️ Running outside Farcaster'); }
-  });
-})();
+    await sdk.actions.ready();
+    console.log('✅ ready() called via ESM');
+  } catch(e) {
+    console.log('ℹ️ Outside Farcaster:', e.message);
+  }
 </script>
 
 <meta charset="UTF-8">
