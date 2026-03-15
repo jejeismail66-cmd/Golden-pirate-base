@@ -2,7 +2,31 @@
 
 <html lang="en">
 <head>
-<script src="https://cdn.jsdelivr.net/npm/@farcaster/miniapp-sdk/dist/index.min.js"></script>
+<script>
+// Inline Farcaster ready() — most reliable method
+window.addEventListener('load', async function() {
+  try {
+    // Try all known SDK global names
+    const sdk = window.sdk || window.frameSDK || window.MiniAppSDK || window.farcaster;
+    if (sdk && sdk.actions && sdk.actions.ready) {
+      await sdk.actions.ready();
+      console.log('✅ ready() called via global sdk');
+    } else {
+      // Last resort: post message directly to Farcaster host
+      window.parent.postMessage({ type: 'frameReady' }, '*');
+      console.log('✅ frameReady postMessage sent');
+    }
+  } catch(e) {
+    window.parent.postMessage({ type: 'frameReady' }, '*');
+    console.log('✅ frameReady postMessage sent (fallback)');
+  }
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@farcaster/frame-sdk@latest/dist/index.min.js" onload="
+  if(window.sdk && window.sdk.actions && window.sdk.actions.ready){
+    window.sdk.actions.ready().then(()=>console.log('✅ frame-sdk ready() called'));
+  }
+"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
