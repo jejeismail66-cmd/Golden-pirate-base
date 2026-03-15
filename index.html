@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head><script src="https://cdn.jsdelivr.net/npm/@farcaster/frame-sdk/dist/index.min.js"></script>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@farcaster/miniapp-sdk/dist/index.min.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>☠️ Golden Pirate Base</title><meta name="fc:frame" content='{"version":"1","imageUrl":"https://golden-pirate-base.vercel.app/preview.png","button":{"title":"⚓ Play Now","action":{"type":"launch_frame","name":"Golden Pirate Base","url":"https://golden-pirate-base.vercel.app","splashBackgroundColor":"#1a6fa8"}}}' />
+<title>☠️ Golden Pirate Base</title>
+<meta name="fc:frame" content='{"version":"1","imageUrl":"https://golden-pirate-base.vercel.app/preview.png","button":{"title":"⚓ Play Now","action":{"type":"launch_frame","name":"Golden Pirate Base","url":"https://golden-pirate-base.vercel.app","splashBackgroundColor":"#1a6fa8"}}}' />
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -309,7 +311,6 @@ box-shadow:0 3px 0 #111;
 .task-prog-fill{height:100%;background:linear-gradient(90deg,#2563eb,#1a4fd8);border-radius:3px;transition:width 0.4s}
 .task-right{text-align:right;flex-shrink:0}
 .task-reward{font-size:0.76rem;font-weight:900;color:#6b7280}
-/* silver reward highlight */
 .task-reward-silver{font-size:0.82rem;font-weight:900;color:#888;display:flex;align-items:center;gap:3px;justify-content:flex-end}
 .task-reward-silver .sr-icon{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#d0d0d0,#909090);border:1.5px solid #707070;display:flex;align-items:center;justify-content:center;font-size:0.55rem}
 .task-btn{background:linear-gradient(135deg,#d0d0d0,#909090);border:2px solid #555;border-radius:8px;padding:6px 10px;font-size:0.68rem;font-weight:900;color:#111;cursor:pointer;display:block;margin-top:5px;box-shadow:0 2px 0 #555;transition:all 0.12s}
@@ -345,7 +346,6 @@ box-shadow:0 3px 0 #111;
 .rarity-epic{background:#8b5cf6;color:#fff}
 .rarity-legendary{background:#f59e0b;color:#111}
 
-/* disconnect btn */
 .disconnect-btn{
 width:100%;background:rgba(239,68,68,0.08);
 border:2px solid rgba(239,68,68,0.4);border-radius:12px;
@@ -393,11 +393,9 @@ text-align:center;margin-bottom:10px;
 .m-close{background:linear-gradient(135deg,#f5c842,#c9941a);border:2px solid #111;border-radius:12px;padding:12px 30px;font-size:0.85rem;font-weight:900;color:#111;cursor:pointer;box-shadow:0 3px 0 #111}
 .m-close:active{transform:translateY(1px);box-shadow:none}
 
-/* ── SILVER REWARD MODAL ── */
 .m-reward-silver{font-size:1.35rem;font-weight:900;color:#888;margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px}
 .m-reward-silver .sr-coin{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#d0d0d0,#909090);border:2px solid #707070;display:flex;align-items:center;justify-content:center;font-size:0.8rem}
 
-/* sparkle */
 .sp{position:fixed;pointer-events:none;z-index:999;animation:spPop 0.9s ease-out forwards}
 @keyframes spPop{0%{transform:translate(0,0) scale(1.2);opacity:1}100%{transform:translate(var(–tx),var(–ty)) scale(0);opacity:0}}
 
@@ -495,7 +493,6 @@ text-align:center;margin-bottom:10px;
     <div class="claim-banner-sub">Next free daily in: <span id="claimTimer">23h 59m 00s</span></div>
   </div>
 
-  <!-- Economy explainer -->
   <div class="economy-card">
     <div class="economy-title">⚓ How It Works</div>
     <div class="economy-row">
@@ -519,7 +516,6 @@ text-align:center;margin-bottom:10px;
     </div>
   </div>
 
-  <!-- Crab worker -->
   <div class="worker-card">
     <div class="wbg"></div><div class="wbg-wave"></div>
     <div class="wbg-sand"></div><div class="wbg-tree">🌴</div>
@@ -540,7 +536,6 @@ text-align:center;margin-bottom:10px;
     <div class="wcard-sub">Complete tasks to earn Silver ⚙️ — then open chests for Gold!</div>
   </div>
 
-  <!-- FAQ & RULES -->
   <div class="faq-card">
     <div class="faq-header" onclick="toggleFaq()">
       <span style="display:flex;align-items:center;gap:8px">
@@ -549,59 +544,17 @@ text-align:center;margin-bottom:10px;
       </span>
       <span class="faq-chevron" id="faqChevron">▼</span>
     </div>
-
     <div class="faq-body" id="faqBody">
-
-      <div class="faq-item">
-        <div class="faq-q">🪙 What is Gold?</div>
-        <div class="faq-a">Gold is the main currency and determines your rank on the Leaderboard. Earn it by opening chests, hiring workers, upgrading your ship, and daily claims.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">⚙️ What is Silver?</div>
-        <div class="faq-a">Silver is the key to opening treasure chests. You earn Silver exclusively by completing Tasks. You cannot buy Silver — you must earn it!</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">📦 How do I open chests?</div>
-        <div class="faq-a">Go to the Game tab. Each chest costs 1 Silver to open. Tap a chest to select it, then tap the open button. Chests drop Gold and rare Collectibles.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">🎁 What are Collectibles?</div>
-        <div class="faq-a">Collectibles are rare items found inside chests. There are 6 total — Rare (~8%), Epic (~3%), and Legendary (~1%) drop rates. Collecting all 6 unlocks Bonus Gold and Special Prizes!</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">🦀 What does the Crab Miner do?</div>
-        <div class="faq-a">Hiring the Crab Miner costs 3 USDC and passively earns you 16 Gold per day automatically. Great for climbing the leaderboard without doing anything!</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">⛵ What does upgrading my Ship do?</div>
-        <div class="faq-a">Each ship upgrade earns you more passive Gold daily. Level 2 earns +1 Gold/day, Level 3 earns +2 Gold/day, and so on. Higher levels cost more USDC.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">🏆 How does the Leaderboard work?</div>
-        <div class="faq-a">The leaderboard ranks the top 200 players by Gold earned this season — highest to lowest. Season 1 resets at the end of the countdown. Top players win real prizes!</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">🔗 Which blockchain is this on?</div>
-        <div class="faq-a">Golden Pirate Base runs on the <strong>Base Network</strong> (Chain ID 8453) — a fast, low-fee Ethereum Layer 2 by Coinbase. Connect with MetaMask or Coinbase Wallet.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">👥 How does the referral system work?</div>
-        <div class="faq-a">Share your invite link from the Profile tab. You earn 50% of Silver from any paid claims or ship purchases your friends make. Only real USDC transactions count.</div>
-      </div>
-
-      <div class="faq-item" style="margin-bottom:0">
-        <div class="faq-q">🛡️ Is my wallet safe?</div>
-        <div class="faq-a">Yes. We never ask for your private key or seed phrase. We only request wallet connection to verify your identity and record your score on Base. You are always in control.</div>
-      </div>
-
+      <div class="faq-item"><div class="faq-q">🪙 What is Gold?</div><div class="faq-a">Gold is the main currency and determines your rank on the Leaderboard. Earn it by opening chests, hiring workers, upgrading your ship, and daily claims.</div></div>
+      <div class="faq-item"><div class="faq-q">⚙️ What is Silver?</div><div class="faq-a">Silver is the key to opening treasure chests. You earn Silver exclusively by completing Tasks. You cannot buy Silver — you must earn it!</div></div>
+      <div class="faq-item"><div class="faq-q">📦 How do I open chests?</div><div class="faq-a">Go to the Game tab. Each chest costs 1 Silver to open. Tap a chest to select it, then tap the open button. Chests drop Gold and rare Collectibles.</div></div>
+      <div class="faq-item"><div class="faq-q">🎁 What are Collectibles?</div><div class="faq-a">Collectibles are rare items found inside chests. There are 6 total — Rare (~8%), Epic (~3%), and Legendary (~1%) drop rates. Collecting all 6 unlocks Bonus Gold and Special Prizes!</div></div>
+      <div class="faq-item"><div class="faq-q">🦀 What does the Crab Miner do?</div><div class="faq-a">Hiring the Crab Miner costs 3 USDC and passively earns you 16 Gold per day automatically. Great for climbing the leaderboard without doing anything!</div></div>
+      <div class="faq-item"><div class="faq-q">⛵ What does upgrading my Ship do?</div><div class="faq-a">Each ship upgrade earns you more passive Gold daily. Level 2 earns +1 Gold/day, Level 3 earns +2 Gold/day, and so on. Higher levels cost more USDC.</div></div>
+      <div class="faq-item"><div class="faq-q">🏆 How does the Leaderboard work?</div><div class="faq-a">The leaderboard ranks the top 200 players by Gold earned this season — highest to lowest. Season 1 resets at the end of the countdown. Top players win real prizes!</div></div>
+      <div class="faq-item"><div class="faq-q">🔗 Which blockchain is this on?</div><div class="faq-a">Golden Pirate Base runs on the <strong>Base Network</strong> (Chain ID 8453) — a fast, low-fee Ethereum Layer 2 by Coinbase. Connect with MetaMask or Coinbase Wallet.</div></div>
+      <div class="faq-item"><div class="faq-q">👥 How does the referral system work?</div><div class="faq-a">Share your invite link from the Profile tab. You earn 50% of Silver from any paid claims or ship purchases your friends make. Only real USDC transactions count.</div></div>
+      <div class="faq-item" style="margin-bottom:0"><div class="faq-q">🛡️ Is my wallet safe?</div><div class="faq-a">Yes. We never ask for your private key or seed phrase. We only request wallet connection to verify your identity and record your score on Base. You are always in control.</div></div>
     </div>
   </div>
 
@@ -609,34 +562,20 @@ text-align:center;margin-bottom:10px;
 
 <!-- ░░░ GAME ░░░ -->
 <div class="tab-panel" id="tab-game">
-
   <div class="game-info-bar">
-    <div class="game-pill">
-      <span class="game-pill-val" id="g-silver">0</span>
-      <span class="game-pill-lbl">Silver ⚙️</span>
-    </div>
-    <div class="game-pill">
-      <span class="game-pill-val" id="g-gold">0</span>
-      <span class="game-pill-lbl">Gold 🪙</span>
-    </div>
-    <div class="game-pill">
-      <span class="game-pill-val" id="g-opened">0</span>
-      <span class="game-pill-lbl">Opened</span>
-    </div>
+    <div class="game-pill"><span class="game-pill-val" id="g-silver">0</span><span class="game-pill-lbl">Silver ⚙️</span></div>
+    <div class="game-pill"><span class="game-pill-val" id="g-gold">0</span><span class="game-pill-lbl">Gold 🪙</span></div>
+    <div class="game-pill"><span class="game-pill-val" id="g-opened">0</span><span class="game-pill-lbl">Opened</span></div>
   </div>
-
   <div class="chest-hint">Tap a chest → costs <b style="color:#fff">1 Silver ⚙️</b> to open</div>
-
   <div class="drop-rates">
     <span class="dr-badge dr-common">🪙 Gold (common)</span>
     <span class="dr-badge dr-rare">🔵 Rare ~8%</span>
     <span class="dr-badge dr-epic">🟣 Epic ~3%</span>
     <span class="dr-badge dr-legendary">🟡 Legendary ~1%</span>
   </div>
-
   <div class="chest-grid" id="chestGrid"></div>
   <div id="gameAction"></div>
-
 </div>
 
 <!-- ░░░ SHIP ░░░ -->
@@ -646,14 +585,8 @@ text-align:center;margin-bottom:10px;
     <div class="ship-sub">Upgrade your ship to earn passive Gold daily.</div>
     <span class="ship-img-area">📦</span>
     <div class="ship-stats">
-      <div class="ship-stat">
-        <span class="ship-stat-val" id="shipCurrent">+0</span>
-        <span class="ship-stat-lbl">Current Daily</span>
-      </div>
-      <div class="ship-stat">
-        <span class="ship-stat-val" id="shipNext">+1</span>
-        <span class="ship-stat-lbl">Next Level</span>
-      </div>
+      <div class="ship-stat"><span class="ship-stat-val" id="shipCurrent">+0</span><span class="ship-stat-lbl">Current Daily</span></div>
+      <div class="ship-stat"><span class="ship-stat-val" id="shipNext">+1</span><span class="ship-stat-lbl">Next Level</span></div>
     </div>
   </div>
   <button class="action-btn-blue" onclick="upgradeShip()">Upgrade For <span id="upgCost">1.0</span> USDC</button>
@@ -670,181 +603,82 @@ text-align:center;margin-bottom:10px;
     <div class="time-label">Time Left</div>
     <div class="time-val" id="seasonTimer">5d 12h 30m</div>
   </div>
-  <div class="rank-note">
-    Ranked <span>#1 highest → #200 lowest</span> Gold · Season earnings only · Updates live 🔴
-  </div>
+  <div class="rank-note">Ranked <span>#1 highest → #200 lowest</span> Gold · Season earnings only · Updates live 🔴</div>
   <div class="lb-list" id="lbList"></div>
 </div>
 
 <!-- ░░░ TASKS ░░░ -->
 <div class="tab-panel" id="tab-tasks">
-
-  <!-- Silver explainer banner -->
   <div style="background:linear-gradient(135deg,#4b5563,#374151);border:2.5px solid #111;border-radius:14px;padding:12px 16px;margin-bottom:10px;box-shadow:0 3px 0 #111;text-align:center">
-    <div style="font-size:0.78rem;font-weight:900;color:#d1d5db;letter-spacing:0.5px">
-      ⚙️ All task rewards are <span style="color:#e5e7eb;font-size:0.85rem">Silver</span> — spend Silver to open chests for Gold!
-    </div>
+    <div style="font-size:0.78rem;font-weight:900;color:#d1d5db;letter-spacing:0.5px">⚙️ All task rewards are <span style="color:#e5e7eb;font-size:0.85rem">Silver</span> — spend Silver to open chests for Gold!</div>
   </div>
-
   <div class="section-lbl">📋 Daily Tasks</div>
-
   <div class="task-row">
     <div class="task-icon">🌅</div>
-    <div class="task-body">
-      <div class="task-name">Daily Check-In</div>
-      <div class="task-desc">Log in today to claim free Silver.</div>
-      <div class="task-prog-wrap"><div class="task-prog-fill" style="width:100%"></div></div>
-    </div>
-    <div class="task-right">
-      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+5 Silver</div>
-      <button class="task-btn" id="tb-daily" onclick="claimTask('daily',0,5,this)">Claim</button>
-    </div>
+    <div class="task-body"><div class="task-name">Daily Check-In</div><div class="task-desc">Log in today to claim free Silver.</div><div class="task-prog-wrap"><div class="task-prog-fill" style="width:100%"></div></div></div>
+    <div class="task-right"><div class="task-reward-silver"><div class="sr-icon">⚙️</div>+5 Silver</div><button class="task-btn" id="tb-daily" onclick="claimTask('daily',0,5,this)">Claim</button></div>
   </div>
-
   <div class="task-row">
     <div class="task-icon">📦</div>
-    <div class="task-body">
-      <div class="task-name">Open 3 Chests</div>
-      <div class="task-desc">Open 3 treasure chests in the Game tab.</div>
-      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-chests" style="width:0%"></div></div>
-    </div>
-    <div class="task-right">
-      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+10 Silver</div>
-      <button class="task-btn" id="tb-chests" onclick="claimTask('chests',3,10,this)" disabled>Claim</button>
-    </div>
+    <div class="task-body"><div class="task-name">Open 3 Chests</div><div class="task-desc">Open 3 treasure chests in the Game tab.</div><div class="task-prog-wrap"><div class="task-prog-fill" id="tp-chests" style="width:0%"></div></div></div>
+    <div class="task-right"><div class="task-reward-silver"><div class="sr-icon">⚙️</div>+10 Silver</div><button class="task-btn" id="tb-chests" onclick="claimTask('chests',3,10,this)" disabled>Claim</button></div>
   </div>
-
   <div class="task-row">
     <div class="task-icon">📦</div>
-    <div class="task-body">
-      <div class="task-name">Open 10 Chests</div>
-      <div class="task-desc">Open 10 treasure chests total.</div>
-      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-chests10" style="width:0%"></div></div>
-    </div>
-    <div class="task-right">
-      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+25 Silver</div>
-      <button class="task-btn" id="tb-chests10" onclick="claimTask('chests10',10,25,this)" disabled>Claim</button>
-    </div>
+    <div class="task-body"><div class="task-name">Open 10 Chests</div><div class="task-desc">Open 10 treasure chests total.</div><div class="task-prog-wrap"><div class="task-prog-fill" id="tp-chests10" style="width:0%"></div></div></div>
+    <div class="task-right"><div class="task-reward-silver"><div class="sr-icon">⚙️</div>+25 Silver</div><button class="task-btn" id="tb-chests10" onclick="claimTask('chests10',10,25,this)" disabled>Claim</button></div>
   </div>
-
   <div class="task-row">
     <div class="task-icon">🦀</div>
-    <div class="task-body">
-      <div class="task-name">Hire a Worker</div>
-      <div class="task-desc">Hire the Crab Miner from the Claim tab.</div>
-      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-worker" style="width:0%"></div></div>
-    </div>
-    <div class="task-right">
-      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+15 Silver</div>
-      <button class="task-btn" id="tb-worker" onclick="claimTask('worker',1,15,this)" disabled>Claim</button>
-    </div>
+    <div class="task-body"><div class="task-name">Hire a Worker</div><div class="task-desc">Hire the Crab Miner from the Claim tab.</div><div class="task-prog-wrap"><div class="task-prog-fill" id="tp-worker" style="width:0%"></div></div></div>
+    <div class="task-right"><div class="task-reward-silver"><div class="sr-icon">⚙️</div>+15 Silver</div><button class="task-btn" id="tb-worker" onclick="claimTask('worker',1,15,this)" disabled>Claim</button></div>
   </div>
-
   <div class="section-lbl" style="margin-top:6px">🏆 Achievements</div>
-
   <div class="task-row">
     <div class="task-icon">⛵</div>
-    <div class="task-body">
-      <div class="task-name">Ship Upgrades I</div>
-      <div class="task-desc">Upgrade your ship for the first time.</div>
-      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-ship" style="width:0%"></div></div>
-    </div>
-    <div class="task-right">
-      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+20 Silver</div>
-      <button class="task-btn" id="tb-ship" onclick="claimTask('ship',1,20,this)" disabled>Claim</button>
-    </div>
+    <div class="task-body"><div class="task-name">Ship Upgrades I</div><div class="task-desc">Upgrade your ship for the first time.</div><div class="task-prog-wrap"><div class="task-prog-fill" id="tp-ship" style="width:0%"></div></div></div>
+    <div class="task-right"><div class="task-reward-silver"><div class="sr-icon">⚙️</div>+20 Silver</div><button class="task-btn" id="tb-ship" onclick="claimTask('ship',1,20,this)" disabled>Claim</button></div>
   </div>
-
   <div class="task-row">
     <div class="task-icon">🎁</div>
-    <div class="task-body">
-      <div class="task-name">Find a Collectible</div>
-      <div class="task-desc">Discover a rare collectible inside a chest.</div>
-      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-collect" style="width:0%"></div></div>
-    </div>
-    <div class="task-right">
-      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+50 Silver</div>
-      <button class="task-btn" id="tb-collect" onclick="claimTask('collect',1,50,this)" disabled>Claim</button>
-    </div>
+    <div class="task-body"><div class="task-name">Find a Collectible</div><div class="task-desc">Discover a rare collectible inside a chest.</div><div class="task-prog-wrap"><div class="task-prog-fill" id="tp-collect" style="width:0%"></div></div></div>
+    <div class="task-right"><div class="task-reward-silver"><div class="sr-icon">⚙️</div>+50 Silver</div><button class="task-btn" id="tb-collect" onclick="claimTask('collect',1,50,this)" disabled>Claim</button></div>
   </div>
-
   <div class="task-row">
     <div class="task-icon">🪙</div>
-    <div class="task-body">
-      <div class="task-name">Gold Hoarder</div>
-      <div class="task-desc">Accumulate 100 Gold total from chests.</div>
-      <div class="task-prog-wrap"><div class="task-prog-fill" id="tp-gold100" style="width:0%"></div></div>
-    </div>
-    <div class="task-right">
-      <div class="task-reward-silver"><div class="sr-icon">⚙️</div>+30 Silver</div>
-      <button class="task-btn" id="tb-gold100" onclick="claimTask('gold100',100,30,this)" disabled>Claim</button>
-    </div>
+    <div class="task-body"><div class="task-name">Gold Hoarder</div><div class="task-desc">Accumulate 100 Gold total from chests.</div><div class="task-prog-wrap"><div class="task-prog-fill" id="tp-gold100" style="width:0%"></div></div></div>
+    <div class="task-right"><div class="task-reward-silver"><div class="sr-icon">⚙️</div>+30 Silver</div><button class="task-btn" id="tb-gold100" onclick="claimTask('gold100',100,30,this)" disabled>Claim</button></div>
   </div>
-
 </div>
 
 <!-- ░░░ PROFILE ░░░ -->
 <div class="tab-panel" id="tab-profile">
-
-  <div class="profile-av-wrap">
-    <div class="profile-av">🏴‍☠️</div>
-  </div>
-
+  <div class="profile-av-wrap"><div class="profile-av">🏴‍☠️</div></div>
   <div class="profile-name-row" id="profileNameRow" style="display:none">
     <div class="profile-username" id="profileUsername">Cap'n Pirate</div>
     <div class="profile-addr-text" id="profileAddrText">0x0000...0000 · Base Network</div>
   </div>
-
   <div class="profile-stats-grid">
-    <div class="profile-stat-card">
-      <div class="ps-icon">🪙</div>
-      <span class="ps-val" id="pr-gold">0</span>
-      <span class="ps-lbl">Total Gold</span>
-    </div>
-    <div class="profile-stat-card">
-      <div class="ps-icon">⚙️</div>
-      <span class="ps-val" id="pr-silver">0</span>
-      <span class="ps-lbl">Total Silver</span>
-    </div>
-    <div class="profile-stat-card">
-      <div class="ps-icon">📦</div>
-      <span class="ps-val" id="pr-chests">0</span>
-      <span class="ps-lbl">Chests Opened</span>
-    </div>
-    <div class="profile-stat-card">
-      <div class="ps-icon">🎁</div>
-      <span class="ps-val" id="pr-collect">0/6</span>
-      <span class="ps-lbl">Collectibles</span>
-    </div>
+    <div class="profile-stat-card"><div class="ps-icon">🪙</div><span class="ps-val" id="pr-gold">0</span><span class="ps-lbl">Total Gold</span></div>
+    <div class="profile-stat-card"><div class="ps-icon">⚙️</div><span class="ps-val" id="pr-silver">0</span><span class="ps-lbl">Total Silver</span></div>
+    <div class="profile-stat-card"><div class="ps-icon">📦</div><span class="ps-val" id="pr-chests">0</span><span class="ps-lbl">Chests Opened</span></div>
+    <div class="profile-stat-card"><div class="ps-icon">🎁</div><span class="ps-val" id="pr-collect">0/6</span><span class="ps-lbl">Collectibles</span></div>
   </div>
-
   <div class="collect-card">
     <div class="collect-title">Your Collectibles</div>
     <div class="collect-sub">Found inside chests. <span>Rare drops only!</span><br>Collect all 6 for Bonus Gold &amp; Prizes!</div>
     <div class="collect-grid" id="collectGrid"></div>
   </div>
-
-  <!-- Disconnect button -->
-  <button class="disconnect-btn" id="disconnectBtn" onclick="openDisconnectModal()" style="display:none">
-    🔌 Disconnect Wallet
-  </button>
-
+  <button class="disconnect-btn" id="disconnectBtn" onclick="openDisconnectModal()" style="display:none">🔌 Disconnect Wallet</button>
   <div class="invite-card">
     <div class="invite-title">Invite Friends</div>
     <div class="invite-sub">Share your link and earn 50% of Silver your friends purchased. Only paid claims and ship purchases are counted.</div>
     <div class="invite-stats">
-      <div class="invite-stat">
-        <span class="invite-stat-val" id="friendCnt">0</span>
-        <span class="invite-stat-lbl">Friends</span>
-      </div>
-      <div class="invite-stat">
-        <span class="invite-stat-val" id="silverEarned">0</span>
-        <span class="invite-stat-lbl">Silver Earned</span>
-      </div>
+      <div class="invite-stat"><span class="invite-stat-val" id="friendCnt">0</span><span class="invite-stat-lbl">Friends</span></div>
+      <div class="invite-stat"><span class="invite-stat-val" id="silverEarned">0</span><span class="invite-stat-lbl">Silver Earned</span></div>
     </div>
     <button class="invite-btn" onclick="copyInvite()">🔗 Copy Invite Link</button>
   </div>
-
   <div style="height:6px"></div>
 </div>
 ```
@@ -864,7 +698,25 @@ text-align:center;margin-bottom:10px;
 
 <script>
 // ════════════════════════════════════════════
-// COLLECTIBLES  (drop from chests only)
+// FARCASTER SDK INIT  ← THE FIX IS HERE
+// ════════════════════════════════════════════
+async function initFarcasterSDK() {
+  try {
+    // @farcaster/miniapp-sdk exposes window.MiniAppSDK or window.sdk
+    const sdk = window.MiniAppSDK || window.miniAppSdk || window.frameSDK || window.sdk;
+    if (sdk && sdk.actions && typeof sdk.actions.ready === 'function') {
+      await sdk.actions.ready();
+      console.log('✅ Farcaster miniapp-sdk ready() called');
+    } else {
+      console.log('ℹ️ Running outside Farcaster — sdk.actions.ready() skipped');
+    }
+  } catch (e) {
+    console.log('ℹ️ sdk.actions.ready() error (likely not in Farcaster):', e.message);
+  }
+}
+
+// ════════════════════════════════════════════
+// COLLECTIBLES
 // ════════════════════════════════════════════
 const COLLECTIBLES = [
   { id:'rum',    em:'🍶', name:'Rum Bottle',  rarity:'rare',      rarityClass:'rare',      dropRate:0.08  },
@@ -875,9 +727,6 @@ const COLLECTIBLES = [
   { id:'wheel',  em:'🎡', name:'Ship Wheel',  rarity:'legendary', rarityClass:'legendary', dropRate:0.008 },
 ];
 
-// ════════════════════════════════════════════
-// GOLD DROP TABLE  (chests only give Gold)
-// ════════════════════════════════════════════
 const GOLD_DROPS = [
   { gold:5,   weight:35 },
   { gold:10,  weight:25 },
@@ -888,9 +737,6 @@ const GOLD_DROPS = [
   { gold:200, weight:1  },
 ];
 
-// ════════════════════════════════════════════
-// LEADERBOARD SEED DATA
-// ════════════════════════════════════════════
 let leaderboard = [
   { id:'musik',  name:'Musik',        addr:'0x1a2b...3c4d', gold:3067.8, av:'🎭', avBg:'#111',    avColor:'#fff' },
   { id:'kraken', name:'Kraken 🔵🟡',  addr:'0xdead...beef', gold:2742.3, av:'🐙', avBg:'#7c3aed', avColor:'#fff' },
@@ -903,9 +749,6 @@ let leaderboard = [
   { id:'newbie', name:'NewSailor',    addr:'0x3333...4444', gold:  45.0, av:'⛵', avBg:'#dbeafe', avColor:'#111' },
 ];
 
-// ════════════════════════════════════════════
-// STATE
-// ════════════════════════════════════════════
 let G = {
   connected:     false,
   wallet:        null,
@@ -918,7 +761,7 @@ let G = {
   shipLvl:       1,
   shipUpgrades:  0,
   chestsOpenedTotal: 0,
-  chestsOpened:  0,       // for current 3x3 cycle
+  chestsOpened:  0,
   collectiblesOwned: new Set(),
   tasksDone:     new Set(),
   selectedChest: null,
@@ -926,9 +769,6 @@ let G = {
   muted:         false,
 };
 
-// ════════════════════════════════════════════
-// NAVIGATION
-// ════════════════════════════════════════════
 function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -940,20 +780,12 @@ function switchTab(name) {
   if (name === 'profile') { renderCollectibles(); renderProfileStats(); }
 }
 
-// ════════════════════════════════════════════
-// WALLET CONNECT / DISCONNECT
-// ════════════════════════════════════════════
 function handleWalletClick() {
-  if (G.connected) {
-    openDisconnectModal();
-  } else {
-    connectWallet();
-  }
+  if (G.connected) { openDisconnectModal(); } else { connectWallet(); }
 }
 
 async function connectWallet() {
   if (G.connected) return;
-
   if (typeof window.ethereum !== 'undefined') {
     try {
       const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -970,11 +802,8 @@ async function connectWallet() {
         }
       }
       onConnected(accs[0]);
-    } catch(e) {
-      toast('❌ Connection rejected');
-    }
+    } catch(e) { toast('❌ Connection rejected'); }
   } else {
-    // Demo mode
     const fake = '0x' + [...Array(40)].map(() => '0123456789abcdef'[Math.floor(Math.random()*16)]).join('');
     onConnected(fake);
     toast('⚓ Demo mode — no wallet detected');
@@ -985,93 +814,43 @@ function onConnected(addr) {
   G.connected  = true;
   G.wallet     = addr;
   G.playerId   = 'player_' + addr.slice(2, 10);
-  G.silver     = 5; // small starter silver
-
+  G.silver     = 5;
   const short = addr.slice(0, 6) + '...' + addr.slice(-4);
-
-  // Update wallet bar
   const btn = document.getElementById('walletBtn');
   btn.classList.add('connected');
   document.getElementById('wcbDot').classList.add('on');
   document.getElementById('wcbLabel').textContent = 'Wallet Connected';
   document.getElementById('wcbAddr').textContent  = short + ' · Base Network';
   document.getElementById('wcbAction').textContent = 'DISCONNECT';
-
-  // Profile section
   document.getElementById('profileNameRow').style.display = 'block';
   document.getElementById('profileUsername').textContent  = 'Cap\'n ' + addr.slice(2, 6).toUpperCase();
   document.getElementById('profileAddrText').textContent  = short + ' · Base Network';
   document.getElementById('disconnectBtn').style.display  = 'block';
-
-  // Add to leaderboard
   if (!leaderboard.find(p => p.id === G.playerId)) {
-    leaderboard.push({
-      id:      G.playerId,
-      name:    short,
-      addr:    short,
-      gold:    0,
-      av:      '🏴‍☠️',
-      avBg:    'linear-gradient(135deg,#a8d8f0,#5ba8d4)',
-      avColor: '#111',
-      isMe:    true,
-      isNew:   true,
-    });
+    leaderboard.push({ id: G.playerId, name: short, addr: short, gold: 0, av: '🏴‍☠️', avBg: 'linear-gradient(135deg,#a8d8f0,#5ba8d4)', avColor: '#111', isMe: true, isNew: true });
   }
-
-  syncStats();
-  renderChests();
-  renderLeaderboard();
+  syncStats(); renderChests(); renderLeaderboard();
   toast('🏴‍☠️ Welcome aboard, Captain! You\'re on the leaderboard.');
 }
 
 function openDisconnectModal() {
   if (!G.connected) return;
-  const short = G.wallet ? G.wallet.slice(0,6)+'...'+G.wallet.slice(-4) : '';
-  document.getElementById('discAddr').textContent = G.wallet || short;
+  document.getElementById('discAddr').textContent = G.wallet || '';
   document.getElementById('disconnectModal').classList.add('show');
 }
-
-function closeDisconnectModal() {
-  document.getElementById('disconnectModal').classList.remove('show');
-}
-
+function closeDisconnectModal() { document.getElementById('disconnectModal').classList.remove('show'); }
 function confirmDisconnect() {
   closeDisconnectModal();
-
-  // Remove player from leaderboard
   leaderboard = leaderboard.filter(p => p.id !== G.playerId);
-
-  // Reset state
-  G.connected  = false;
-  G.wallet     = null;
-  G.playerId   = null;
-  G.gold       = 0;
-  G.silver     = 0;
-  G.seasonGold = 0;
-  G.totalGoldFromChests = 0;
-  G.workerHired = false;
-  G.shipLvl    = 1;
-  G.shipUpgrades = 0;
-  G.chestsOpenedTotal = 0;
-  G.chestsOpened = 0;
-  G.collectiblesOwned = new Set();
-  G.tasksDone  = new Set();
-  G.selectedChest = null;
-  G.openedEmojis = {};
-
-  // Reset wallet bar
+  G = { connected:false, wallet:null, playerId:null, gold:0, silver:0, seasonGold:0, totalGoldFromChests:0, workerHired:false, shipLvl:1, shipUpgrades:0, chestsOpenedTotal:0, chestsOpened:0, collectiblesOwned:new Set(), tasksDone:new Set(), selectedChest:null, openedEmojis:{}, muted:G.muted };
   const btn = document.getElementById('walletBtn');
   btn.classList.remove('connected');
   document.getElementById('wcbDot').classList.remove('on');
   document.getElementById('wcbLabel').textContent = 'Connect Wallet';
   document.getElementById('wcbAddr').textContent  = 'Tap to connect on Base Network';
   document.getElementById('wcbAction').textContent = 'CONNECT';
-
-  // Reset profile
   document.getElementById('profileNameRow').style.display = 'none';
   document.getElementById('disconnectBtn').style.display  = 'none';
-
-  // Reset task buttons
   ['tb-daily','tb-chests','tb-chests10','tb-worker','tb-ship','tb-collect','tb-gold100'].forEach(id => {
     const b = document.getElementById(id);
     if (b) { b.disabled = (id !== 'tb-daily'); b.textContent = 'Claim'; b.style.background = ''; b.style.color = ''; }
@@ -1079,19 +858,10 @@ function confirmDisconnect() {
   ['tp-chests','tp-chests10','tp-worker','tp-ship','tp-collect','tp-gold100'].forEach(id => {
     const el = document.getElementById(id); if(el) el.style.width = '0%';
   });
-
-  syncStats();
-  renderChests();
-  renderLeaderboard();
-  renderCollectibles();
-  renderProfileStats();
-  updateShipUI();
+  syncStats(); renderChests(); renderLeaderboard(); renderCollectibles(); renderProfileStats(); updateShipUI();
   toast('👋 Wallet disconnected. See you soon, Captain!');
 }
 
-// ════════════════════════════════════════════
-// LEADERBOARD  — highest → lowest gold, max 200 players
-// ════════════════════════════════════════════
 function updateMyLBScore() {
   const entry = leaderboard.find(p => p.id === G.playerId);
   if (entry) entry.gold = parseFloat(G.seasonGold.toFixed(1));
@@ -1100,79 +870,40 @@ function updateMyLBScore() {
 function renderLeaderboard() {
   const list = document.getElementById('lbList');
   if (!list) return;
-  // Sort highest → lowest, cap at 200
-  const sorted = [...leaderboard]
-    .sort((a, b) => b.gold - a.gold)
-    .slice(0, 200);
-
+  const sorted = [...leaderboard].sort((a, b) => b.gold - a.gold).slice(0, 200);
   list.innerHTML = '';
-
-  // If player is connected but outside top 200, show them separately at bottom
   const myEntry = G.playerId ? leaderboard.find(p => p.id === G.playerId) : null;
   const myRank  = G.playerId ? [...leaderboard].sort((a,b)=>b.gold-a.gold).findIndex(p=>p.id===G.playerId)+1 : null;
   const inTop200 = myRank !== null && myRank <= 200;
-
   sorted.forEach((player, idx) => {
     const rank = idx + 1;
     const isMe = player.id === G.playerId;
-
     const row = document.createElement('div');
     row.className = 'lb-row' + (isMe ? ' mine' : '') + (player.isNew ? ' lb-new' : '');
     player.isNew = false;
-
     let rankDisplay = rank;
     if (rank === 1) rankDisplay = '🥇';
     else if (rank === 2) rankDisplay = '🥈';
     else if (rank === 3) rankDisplay = '🥉';
-
-    row.innerHTML = `
-      <div class="lb-rank-num">${rankDisplay}</div>
-      <div class="lb-av" style="background:${player.avBg};color:${player.avColor}">${player.av}</div>
-      <div class="lb-info">
-        <div class="lb-name">${player.name}${isMe ? ' <span style="font-size:0.62rem;color:#2563eb;font-weight:900">(You)</span>' : ''}</div>
-        <div class="lb-sub">${player.addr}</div>
-      </div>
-      <div class="lb-pill">
-        <div class="lb-coin">🪙</div>
-        <span>${player.gold.toLocaleString()}</span>
-      </div>`;
+    row.innerHTML = `<div class="lb-rank-num">${rankDisplay}</div><div class="lb-av" style="background:${player.avBg};color:${player.avColor}">${player.av}</div><div class="lb-info"><div class="lb-name">${player.name}${isMe ? ' <span style="font-size:0.62rem;color:#2563eb;font-weight:900">(You)</span>' : ''}</div><div class="lb-sub">${player.addr}</div></div><div class="lb-pill"><div class="lb-coin">🪙</div><span>${player.gold.toLocaleString()}</span></div>`;
     list.appendChild(row);
   });
-
-  // If player connected but outside top 200, show their rank below the list
   if (myEntry && !inTop200 && myRank !== null) {
     const divider = document.createElement('div');
     divider.style.cssText = 'text-align:center;font-size:0.7rem;font-weight:800;color:rgba(255,255,255,0.5);padding:6px 0;letter-spacing:1px';
     divider.textContent = '· · ·';
     list.appendChild(divider);
-
     const yourRow = document.createElement('div');
     yourRow.className = 'lb-row mine lb-new';
-    yourRow.innerHTML = `
-      <div class="lb-rank-num">${myRank}</div>
-      <div class="lb-av" style="background:${myEntry.avBg};color:${myEntry.avColor}">${myEntry.av}</div>
-      <div class="lb-info">
-        <div class="lb-name">${myEntry.name} <span style="font-size:0.62rem;color:#2563eb;font-weight:900">(You)</span></div>
-        <div class="lb-sub">${myEntry.addr} · Earn more Gold to enter Top 200!</div>
-      </div>
-      <div class="lb-pill">
-        <div class="lb-coin">🪙</div>
-        <span>${myEntry.gold.toLocaleString()}</span>
-      </div>`;
+    yourRow.innerHTML = `<div class="lb-rank-num">${myRank}</div><div class="lb-av" style="background:${myEntry.avBg};color:${myEntry.avColor}">${myEntry.av}</div><div class="lb-info"><div class="lb-name">${myEntry.name} <span style="font-size:0.62rem;color:#2563eb;font-weight:900">(You)</span></div><div class="lb-sub">${myEntry.addr} · Earn more Gold to enter Top 200!</div></div><div class="lb-pill"><div class="lb-coin">🪙</div><span>${myEntry.gold.toLocaleString()}</span></div>`;
     list.appendChild(yourRow);
   }
-
-  // Player count badge
-  const totalPlayers = leaderboard.length;
   const countNote = document.createElement('div');
   countNote.style.cssText = 'text-align:center;font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.5);padding:10px 0 4px';
-  countNote.textContent = `Showing ${Math.min(totalPlayers, 200)} of ${totalPlayers} pirate${totalPlayers !== 1 ? 's' : ''} · Max 200 ranked`;
+  countNote.textContent = `Showing ${Math.min(leaderboard.length, 200)} of ${leaderboard.length} pirate${leaderboard.length !== 1 ? 's' : ''} · Max 200 ranked`;
   list.appendChild(countNote);
 }
 
-// ════════════════════════════════════════════
-// CHEST GAME  — drops Gold + rare Collectibles
-// ════════════════════════════════════════════
 function chestSVG() {
   return `<svg viewBox="0 0 80 68" xmlns="http://www.w3.org/2000/svg" style="width:78%;height:78%">
     <rect x="6" y="30" width="68" height="30" rx="5" fill="#7a4f28" stroke="#3a2008" stroke-width="2.5"/>
@@ -1207,8 +938,6 @@ function renderChests() {
     grid.appendChild(div);
   }
   renderGameAction();
-
-  // Sync game pills
   const gs = document.getElementById('g-silver'); if(gs) gs.textContent = parseFloat(G.silver.toFixed(1));
   const gg = document.getElementById('g-gold');   if(gg) gg.textContent = parseFloat(G.gold.toFixed(1));
   const go = document.getElementById('g-opened'); if(go) go.textContent = G.chestsOpenedTotal;
@@ -1242,79 +971,35 @@ function openChest() {
   G.selectedChest = null;
   G.chestsOpenedTotal++;
   G.chestsOpened++;
-
-  // ── 1. Roll for collectible (rarest first) ──
   let collectibleDrop = null;
   const sortedCols = [...COLLECTIBLES].sort((a, b) => a.dropRate - b.dropRate);
   for (const col of sortedCols) {
-    if (!G.collectiblesOwned.has(col.id) && Math.random() < col.dropRate) {
-      collectibleDrop = col;
-      break;
-    }
+    if (!G.collectiblesOwned.has(col.id) && Math.random() < col.dropRate) { collectibleDrop = col; break; }
   }
-
   let result;
   if (collectibleDrop) {
-    // ── Collectible drop + bonus gold ──
     G.collectiblesOwned.add(collectibleDrop.id);
-    const bonusGold = collectibleDrop.rarity === 'legendary' ? 100 :
-                      collectibleDrop.rarity === 'epic'      ? 50  : 25;
-    G.gold         += bonusGold;
-    G.seasonGold   += bonusGold;
-    G.totalGoldFromChests += bonusGold;
-
-    result = {
-      em:          collectibleDrop.em,
-      rare:        true,
-      rarityClass: collectibleDrop.rarityClass,
-      rarityLabel: collectibleDrop.rarity.charAt(0).toUpperCase() + collectibleDrop.rarity.slice(1),
-      title:       collectibleDrop.name + ' Collectible!',
-      desc:        `A ${collectibleDrop.rarity} collectible found! Check your Profile to see it.`,
-      reward:      `+${bonusGold} Gold 🪙  +  Collectible Unlocked!`,
-    };
+    const bonusGold = collectibleDrop.rarity === 'legendary' ? 100 : collectibleDrop.rarity === 'epic' ? 50 : 25;
+    G.gold += bonusGold; G.seasonGold += bonusGold; G.totalGoldFromChests += bonusGold;
+    result = { em: collectibleDrop.em, rare: true, rarityClass: collectibleDrop.rarityClass, rarityLabel: collectibleDrop.rarity.charAt(0).toUpperCase() + collectibleDrop.rarity.slice(1), title: collectibleDrop.name + ' Collectible!', desc: `A ${collectibleDrop.rarity} collectible found! Check your Profile to see it.`, reward: `+${bonusGold} Gold 🪙  +  Collectible Unlocked!` };
   } else {
-    // ── Gold only drop ──
     const total = GOLD_DROPS.reduce((s, r) => s + r.weight, 0);
     let roll = Math.random() * total, drop = GOLD_DROPS[GOLD_DROPS.length - 1];
     for (const d of GOLD_DROPS) { roll -= d.weight; if (roll <= 0) { drop = d; break; } }
-
-    G.gold         += drop.gold;
-    G.seasonGold   += drop.gold;
-    G.totalGoldFromChests += drop.gold;
-
-    result = {
-      em:          drop.gold >= 100 ? '💎' : drop.gold >= 50 ? '💰' : drop.gold >= 20 ? '🪙' : '🥇',
-      rare:        false,
-      rarityClass: drop.gold >= 100 ? 'epic' : drop.gold >= 50 ? 'rare' : 'common',
-      rarityLabel: drop.gold >= 100 ? 'Epic' : drop.gold >= 50 ? 'Rare' : 'Common',
-      title:       `+${drop.gold} Gold Found!`,
-      desc:        drop.gold >= 100 ? 'A massive haul! The chest overflows with gold!'
-                 : drop.gold >= 50  ? 'A hefty stash of gold coins tumbles out!'
-                 : 'Gold coins spill from the chest. Every piece counts!',
-      reward:      `+${drop.gold} Gold 🪙`,
-    };
+    G.gold += drop.gold; G.seasonGold += drop.gold; G.totalGoldFromChests += drop.gold;
+    result = { em: drop.gold >= 100 ? '💎' : drop.gold >= 50 ? '💰' : drop.gold >= 20 ? '🪙' : '🥇', rare: false, rarityClass: drop.gold >= 100 ? 'epic' : drop.gold >= 50 ? 'rare' : 'common', rarityLabel: drop.gold >= 100 ? 'Epic' : drop.gold >= 50 ? 'Rare' : 'Common', title: `+${drop.gold} Gold Found!`, desc: drop.gold >= 100 ? 'A massive haul! The chest overflows with gold!' : drop.gold >= 50 ? 'A hefty stash of gold coins tumbles out!' : 'Gold coins spill from the chest. Every piece counts!', reward: `+${drop.gold} Gold 🪙` };
   }
-
-  // Reset grid when all 9 opened
   if (G.chestsOpened >= 9) {
-    G.chestsOpened = 0;
-    G.openedEmojis = {};
+    G.chestsOpened = 0; G.openedEmojis = {};
     setTimeout(() => { renderChests(); toast('🗺️ New chests have appeared!'); }, 700);
   } else {
     G.openedEmojis[idx] = { em: result.em, rare: result.rare };
   }
-
-  updateMyLBScore();
-  syncStats();
-  renderChests();
-  checkTasks();
+  updateMyLBScore(); syncStats(); renderChests(); checkTasks();
   showModal(result.em, result.rarityClass, result.rarityLabel, result.title, result.desc, result.reward);
   spawnSp(result.em, result.rare);
 }
 
-// ════════════════════════════════════════════
-// COLLECTIBLES (Profile)
-// ════════════════════════════════════════════
 function renderCollectibles() {
   const grid = document.getElementById('collectGrid');
   if (!grid) return;
@@ -1323,10 +1008,7 @@ function renderCollectibles() {
     const owned = G.collectiblesOwned.has(col.id);
     const div = document.createElement('div');
     div.className = 'collect-item ' + (owned ? 'unlocked' : 'locked');
-    div.innerHTML = `
-      <span>${col.em}</span>
-      <div class="collect-item-name">${col.name}</div>
-      ${owned ? `<span class="rarity-badge rarity-${col.rarityClass}">${col.rarity}</span>` : ''}`;
+    div.innerHTML = `<span>${col.em}</span><div class="collect-item-name">${col.name}</div>${owned ? `<span class="rarity-badge rarity-${col.rarityClass}">${col.rarity}</span>` : ''}`;
     grid.appendChild(div);
   });
 }
@@ -1338,20 +1020,13 @@ function renderProfileStats() {
   document.getElementById('pr-collect').textContent = G.collectiblesOwned.size + '/6';
 }
 
-// ════════════════════════════════════════════
-// CLAIM
-// ════════════════════════════════════════════
 let claimUsed = false, claimIv;
 function doClaim() {
   if (!G.connected) { connectWallet(); return; }
   if (claimUsed) { toast('⏳ Already claimed today!'); return; }
   claimUsed = true;
-  // Claim gives Gold directly
-  G.gold += 10;
-  G.seasonGold += 10;
-  updateMyLBScore();
-  syncStats();
-  checkTasks();
+  G.gold += 10; G.seasonGold += 10;
+  updateMyLBScore(); syncStats(); checkTasks();
   toast('🎁 +10 Gold claimed! Complete Tasks to earn Silver ⚙️');
   startClaimTimer(86400);
 }
@@ -1367,22 +1042,15 @@ function startClaimTimer(secs) {
   }, 1000);
 }
 
-// ════════════════════════════════════════════
-// WORKER
-// ════════════════════════════════════════════
 function hireWorker() {
   if (!G.connected) { connectWallet(); return; }
   if (G.workerHired) { toast('🦀 Already hired!'); return; }
   G.workerHired = true;
   G.gold += 16; G.seasonGold += 16;
-  updateMyLBScore();
-  syncStats(); checkTasks();
+  updateMyLBScore(); syncStats(); checkTasks();
   toast('✅ Crab Miner hired! +16 Gold/day');
 }
 
-// ════════════════════════════════════════════
-// SHIP
-// ════════════════════════════════════════════
 const SHIP_COSTS = [1.0, 2.0, 3.5, 5.0, 8.0, 12.0];
 function upgradeShip() {
   if (!G.connected) { connectWallet(); return; }
@@ -1398,13 +1066,10 @@ function updateShipUI() {
   document.getElementById('upgCost').textContent     = SHIP_COSTS[Math.min(G.shipUpgrades, 5)].toFixed(1);
 }
 
-// ════════════════════════════════════════════
-// TASKS  — all rewards are Silver ⚙️
-// ════════════════════════════════════════════
 function claimTask(id, threshold, silverReward, btn) {
   if (G.tasksDone.has(id)) return;
   G.tasksDone.add(id);
-  G.silver += silverReward;           // ← Silver reward
+  G.silver += silverReward;
   syncStats();
   btn.disabled = true;
   btn.textContent = '✓ Claimed';
@@ -1415,60 +1080,31 @@ function claimTask(id, threshold, silverReward, btn) {
 }
 
 function checkTasks() {
-  // chests 3
   const c3p = Math.min(G.chestsOpenedTotal / 3, 1);
   const tp3 = document.getElementById('tp-chests'); if(tp3) tp3.style.width = (c3p * 100) + '%';
   if (G.chestsOpenedTotal >= 3 && !G.tasksDone.has('chests'))    { const b = document.getElementById('tb-chests');    if(b) b.disabled = false; }
-
-  // chests 10
   const c10p = Math.min(G.chestsOpenedTotal / 10, 1);
   const tp10 = document.getElementById('tp-chests10'); if(tp10) tp10.style.width = (c10p * 100) + '%';
   if (G.chestsOpenedTotal >= 10 && !G.tasksDone.has('chests10')) { const b = document.getElementById('tb-chests10');  if(b) b.disabled = false; }
-
-  // worker
-  if (G.workerHired && !G.tasksDone.has('worker')) {
-    const b = document.getElementById('tb-worker'); if(b) b.disabled = false;
-    const t = document.getElementById('tp-worker'); if(t) t.style.width = '100%';
-  }
-
-  // ship
-  if (G.shipUpgrades > 0 && !G.tasksDone.has('ship')) {
-    const b = document.getElementById('tb-ship'); if(b) b.disabled = false;
-    const t = document.getElementById('tp-ship'); if(t) t.style.width = '100%';
-  }
-
-  // collectible
-  if (G.collectiblesOwned.size > 0 && !G.tasksDone.has('collect')) {
-    const b = document.getElementById('tb-collect'); if(b) b.disabled = false;
-    const t = document.getElementById('tp-collect'); if(t) t.style.width = '100%';
-  }
-
-  // gold 100
+  if (G.workerHired && !G.tasksDone.has('worker')) { const b = document.getElementById('tb-worker'); if(b) b.disabled = false; const t = document.getElementById('tp-worker'); if(t) t.style.width = '100%'; }
+  if (G.shipUpgrades > 0 && !G.tasksDone.has('ship')) { const b = document.getElementById('tb-ship'); if(b) b.disabled = false; const t = document.getElementById('tp-ship'); if(t) t.style.width = '100%'; }
+  if (G.collectiblesOwned.size > 0 && !G.tasksDone.has('collect')) { const b = document.getElementById('tb-collect'); if(b) b.disabled = false; const t = document.getElementById('tp-collect'); if(t) t.style.width = '100%'; }
   const gp = Math.min(G.totalGoldFromChests / 100, 1);
   const tpg = document.getElementById('tp-gold100'); if(tpg) tpg.style.width = (gp * 100) + '%';
   if (G.totalGoldFromChests >= 100 && !G.tasksDone.has('gold100')) { const b = document.getElementById('tb-gold100'); if(b) b.disabled = false; }
 }
 
-// ════════════════════════════════════════════
-// SYNC STATS
-// ════════════════════════════════════════════
 function syncStats() {
   document.getElementById('goldAmt').textContent   = parseFloat(G.gold.toFixed(1));
   document.getElementById('silverAmt').textContent = parseFloat(G.silver.toFixed(1));
-  // profile
   renderProfileStats();
-  // game pills
   const gs = document.getElementById('g-silver'); if(gs) gs.textContent = parseFloat(G.silver.toFixed(1));
   const gg = document.getElementById('g-gold');   if(gg) gg.textContent = parseFloat(G.gold.toFixed(1));
   const go = document.getElementById('g-opened'); if(go) go.textContent = G.chestsOpenedTotal;
   renderGameAction();
-  // live leaderboard update
   if (document.getElementById('tab-leaders').classList.contains('active')) renderLeaderboard();
 }
 
-// ════════════════════════════════════════════
-// MODAL
-// ════════════════════════════════════════════
 function showModal(em, rarityClass, rarityLabel, title, desc, reward) {
   document.getElementById('mEm').textContent    = em;
   const rb = document.getElementById('mRarity');
@@ -1481,9 +1117,6 @@ function showModal(em, rarityClass, rarityLabel, title, desc, reward) {
 }
 function closeModal() { document.getElementById('modal').classList.remove('show'); }
 
-// ════════════════════════════════════════════
-// TOAST
-// ════════════════════════════════════════════
 let toastT;
 function toast(msg) {
   const el = document.getElementById('toast');
@@ -1492,9 +1125,6 @@ function toast(msg) {
   toastT = setTimeout(() => el.classList.remove('show'), 2800);
 }
 
-// ════════════════════════════════════════════
-// SPARKLES
-// ════════════════════════════════════════════
 function spawnSp(em, rare) {
   const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
   const pars = rare ? [em, '✨', '💫', '⭐', '🌟', '✨', '💰'] : [em, '🪙', '✨', '🪙'];
@@ -1511,9 +1141,6 @@ function spawnSp(em, rare) {
   });
 }
 
-// ════════════════════════════════════════════
-// FAQ
-// ════════════════════════════════════════════
 function toggleFaq() {
   const body    = document.getElementById('faqBody');
   const chevron = document.getElementById('faqChevron');
@@ -1521,9 +1148,6 @@ function toggleFaq() {
   chevron.classList.toggle('open');
 }
 
-// ════════════════════════════════════════════
-// MISC
-// ════════════════════════════════════════════
 function toggleMute() {
   G.muted = !G.muted;
   document.querySelector('.mute-btn').textContent = G.muted ? '🔇' : '🔊';
@@ -1536,13 +1160,10 @@ function copyInvite() {
     .catch(() => toast('🔗 ' + link));
 }
 
-// Season countdown
 let seasonSecs = 5 * 86400 + 12 * 3600 + 30 * 60;
 setInterval(() => {
   if (seasonSecs > 0) seasonSecs--;
-  const d = Math.floor(seasonSecs / 86400),
-        h = Math.floor((seasonSecs % 86400) / 3600),
-        m = Math.floor((seasonSecs % 3600) / 60);
+  const d = Math.floor(seasonSecs / 86400), h = Math.floor((seasonSecs % 86400) / 3600), m = Math.floor((seasonSecs % 3600) / 60);
   const el = document.getElementById('seasonTimer');
   if (el) el.textContent = `${d}d ${h}h ${m}m`;
 }, 60000);
@@ -1554,7 +1175,11 @@ renderCollectibles();
 renderProfileStats();
 updateShipUI();
 startClaimTimer(86399);
-setTimeout(connectWallet, 500);
+
+// Call Farcaster ready() FIRST, then auto-connect wallet
+initFarcasterSDK().then(() => {
+  setTimeout(connectWallet, 500);
+});
 </script>
 
 </body>
