@@ -2,31 +2,40 @@
 
 <html lang="en">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/@farcaster/miniapp-sdk/dist/index.min.js"></script>
 <script>
-// Inline Farcaster ready() — most reliable method
-window.addEventListener('load', async function() {
+// Call ready() immediately as soon as possible
+(async function callReady() {
   try {
-    // Try all known SDK global names
-    const sdk = window.sdk || window.frameSDK || window.MiniAppSDK || window.farcaster;
+    const sdk = window.sdk || window.frameSDK || window.MiniAppSDK;
     if (sdk && sdk.actions && sdk.actions.ready) {
       await sdk.actions.ready();
-      console.log('✅ ready() called via global sdk');
-    } else {
-      // Last resort: post message directly to Farcaster host
-      window.parent.postMessage({ type: 'frameReady' }, '*');
-      console.log('✅ frameReady postMessage sent');
+      console.log('✅ ready() called immediately');
+      return;
     }
-  } catch(e) {
-    window.parent.postMessage({ type: 'frameReady' }, '*');
-    console.log('✅ frameReady postMessage sent (fallback)');
-  }
-});
+  } catch(e) {}
+  // Also try on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', async function() {
+    try {
+      const sdk = window.sdk || window.frameSDK || window.MiniAppSDK;
+      if (sdk && sdk.actions && sdk.actions.ready) {
+        await sdk.actions.ready();
+        console.log('✅ ready() called on DOMContentLoaded');
+      }
+    } catch(e) {}
+  });
+  // And on load as final fallback
+  window.addEventListener('load', async function() {
+    try {
+      const sdk = window.sdk || window.frameSDK || window.MiniAppSDK;
+      if (sdk && sdk.actions && sdk.actions.ready) {
+        await sdk.actions.ready();
+        console.log('✅ ready() called on load');
+      }
+    } catch(e) { console.log('ℹ️ Running outside Farcaster'); }
+  });
+})();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@farcaster/frame-sdk@latest/dist/index.min.js" onload="
-  if(window.sdk && window.sdk.actions && window.sdk.actions.ready){
-    window.sdk.actions.ready().then(()=>console.log('✅ frame-sdk ready() called'));
-  }
-"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -724,20 +733,7 @@ text-align:center;margin-bottom:10px;
 // ════════════════════════════════════════════
 // FARCASTER SDK INIT  ← THE FIX IS HERE
 // ════════════════════════════════════════════
-async function initFarcasterSDK() {
-  try {
-    // @farcaster/miniapp-sdk exposes window.MiniAppSDK or window.sdk
-    const sdk = window.MiniAppSDK || window.miniAppSdk || window.frameSDK || window.sdk;
-    if (sdk && sdk.actions && typeof sdk.actions.ready === 'function') {
-      await sdk.actions.ready();
-      console.log('✅ Farcaster miniapp-sdk ready() called');
-    } else {
-      console.log('ℹ️ Running outside Farcaster — sdk.actions.ready() skipped');
-    }
-  } catch (e) {
-    console.log('ℹ️ sdk.actions.ready() error (likely not in Farcaster):', e.message);
-  }
-}
+
 
 // ════════════════════════════════════════════
 // COLLECTIBLES
@@ -1199,11 +1195,7 @@ renderCollectibles();
 renderProfileStats();
 updateShipUI();
 startClaimTimer(86399);
-
-// Call Farcaster ready() FIRST, then auto-connect wallet
-initFarcasterSDK().then(() => {
-  setTimeout(connectWallet, 500);
-});
+setTimeout(connectWallet, 500);
 </script>
 
 </body>
