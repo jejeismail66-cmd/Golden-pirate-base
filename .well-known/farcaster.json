@@ -1,11 +1,17 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjE5MDkyNTksInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhBMjFmOEMyRDcwZDY0MGUxNThDYzlFQjhBNzdCOTNENDVCNEQ1MjI4In0",
+    "payload": "eyJkb21haW4iOiJnb2xkZW4tcGlyYXRlLWJhc2UudmVyY2VsLmFwcCJ9",
+    "signature": "gCj13uDIEebKlHUCvHy+dgszje6aHzKi3peHDDAfuYEqpivXcPk2EXXLlOhn8dR+/g39gAAel09BAFU0x2ZlJRs="
+  },
   "frame": {
     "version": "1",
     "name": "Golden Pirate Base",
     "iconUrl": "https://golden-pirate-base.vercel.app/icon.png",
-    "homeUrl": "https://golden-pirate-base.vercel.app/",
+    "homeUrl": "https://golden-pirate-base.vercel.app",
     "imageUrl": "https://golden-pirate-base.vercel.app/preview.png",
     "buttonTitle": "⚓ Play Now",
+    "splashImageUrl": "https://golden-pirate-base.vercel.app/preview.png",
     "splashBackgroundColor": "#1a6fa8"
   }
 }
